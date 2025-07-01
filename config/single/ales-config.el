@@ -26,6 +26,20 @@
   (interactive)
   (message "ciao"))
 
+;;funzione per atanasio da francy
+(defun funzioneFrancy ()
+  (interactive)
+  (message "Ciao Atanasio, che figata il lisp!")
+  (let ((num (read-number "Inserisci un numero da 1 a 5: ")))
+    (cond
+     ((= num 1) (message "Mi devi un kit kat"))
+     ((= num 2) (message "Andiamo a fare pausa"))
+     ((= num 3) (message "Hai vinto un caffè"))
+     ((= num 4) (message "DioCane"))
+     ((= num 5) (message "Gay"))
+     (t (message "Numero non valido, devi inserire da 1 a 5 COGLIONE")))))
+
+
 ;; you can select region and calculate the math operation
 ;; 1 + 1 = 2
 (defmacro *-and-replace (function-name inner-function)
