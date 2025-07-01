@@ -1,0 +1,12 @@
+;;; common.el --- Configurazioni comuni a tutti gli OS -*- lexical-binding: t; -*-
+
+;; Configurazioni UI comuni
+(setq inhibit-startup-message t)
+(setq ring-bell-function 'ignore)
+(global-display-line-numbers-mode 1)
+(column-number-mode 1)
+
+
+;; theme
+(mapc #'disable-theme custom-enabled-themes)  ; Disable all active themes
+(load-theme 'tango-dark t)  ; Load the built-in theme

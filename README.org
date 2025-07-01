@@ -1,0 +1,79 @@
+#+TITLE: ales-min-conf
+#+AUTHOR: Alessandro Atanasio
+#+EMAIL:
+#+DATE: 01/07/2025
+
+ales-min-conf
+
+Minimal Emacs configuration (requires Emacs 28+) based on [[https://github.com/jamescherti/minimal-emacs.d][minimal-emacs.d by jamescherti]].
+** Features
+
+Separated configuration structure
+
+
+common.el → Provides configuration for all operating systems
+ales-config.el → Personal configuration
+Package management with modern tools
+Enhanced buffer management with ibuffer
+Git integration with magit
+Programming language support
+Go configuration (work in progress)
+Common Lisp with SLIME
+Productivity tools
+Enhanced org-mode setup
+Modern completion with Corfu
+
+** Installation
+*** Prerequisites
+
+Emacs 28 or higher
+Git
+
+*** Procedure
+Clone the base configuration:
+#+BEGIN_SRC bash
+git clone https://github.com/jamescherti/minimal-emacs.d ~/.emacs.d
+#+END_SRC
+Clone this configuration:
+#+BEGIN_SRC bash
+cd ~/.emacs.d
+git clone [YOUR_REPO_URL] ales-min-conf
+#+END_SRC
+Create symbolic links:
+#+BEGIN_SRC bash
+ln -s ales-min-conf/post-early-init.el post-early-init.el
+ln -s ales-min-conf/post-init.el post-init.el
+ln -s ales-min-conf/pre-early-init.el pre-early-init.el
+#+END_SRC
+*** Directory Structure
+After installation, your .emacs.d should look like this:
+#+BEGIN_EXAMPLE
+.emacs.d/
+├── ales-min-conf/           # This configuration
+├── post-early-init.el       # → ales-min-conf/post-early-init.el
+├── post-init.el            # → ales-min-conf/post-init.el
+├── pre-early-init.el       # → ales-min-conf/pre-early-init.el
+├── early-init.el           # From minimal-emacs.d
+├── init.el                 # From minimal-emacs.d
+└── ...
+#+END_EXAMPLE
+** Configuration Files
+
+pre-early-init.el - Settings loaded before early-init
+post-early-init.el - Settings loaded after early-init
+post-init.el - Main configuration loaded after init
+common.el - Cross-platform configuration
+ales-config.el - Personal customizations
+
+** Usage
+Start Emacs normally. The configuration will automatically load and install required packages on first run.
+** Customization
+Edit ales-config.el to add your personal customizations without modifying the core configuration files.
+** Known Issues
+
+Go configuration is currently incomplete and may not work as expected
+
+** Contributing
+Feel free to submit issues and pull requests to improve this configuration.
+** License
+This configuration follows the same license as the base minimal-emacs.d project.
