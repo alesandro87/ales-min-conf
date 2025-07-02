@@ -8,8 +8,12 @@
 ;; loading magit
 (my/load-config "single/magit-config.el")
 
+;; loading python
+(my/load-config "single/python-config.el")
+ 
 ;; loading go
-(my/load-config "single/go-config.el")
+;(my/load-config "single/go-config.el")
+
 
 (use-package emojify
   :ensure t
