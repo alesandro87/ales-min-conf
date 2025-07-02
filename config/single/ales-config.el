@@ -1,5 +1,9 @@
 ;;; ales-config.el -- single configuration
 
+;; autorevert permette il caricamento dei file
+;; quando sono modificati
+(global-auto-revert-mode 1)
+
 ;; Configurazioni UI comuni
 (setq inhibit-startup-message t)
 (setq ring-bell-function 'ignore)
