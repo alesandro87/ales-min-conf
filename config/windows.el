@@ -1,7 +1,7 @@
 ;;; windows.el --- Configurazioni specifiche Windows -*- lexical-binding: t; -*-
 
 ;; only for windows start server
-(server-start)
+; (server-start)
 
 ;; Font per Windows
 (when (display-graphic-p)
