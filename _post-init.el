@@ -1,3 +1,5 @@
+;; do not use
+
 ;; Ensure adding the following compile-angel code at the very beginning
 ;; of your `~/.emacs.d/post-init.el` file, before all other packages.
 
