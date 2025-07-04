@@ -27,15 +27,6 @@
   (slime-setup '(slime-fancy slime-quicklisp slime-asdf))
   :bind ("C-c s" . slime))
 
-;; display time in the modeline
-(add-hook 'after-init-hook #'display-time-mode)
-
-;; theme
-(mapc #'disable-theme custom-enabled-themes)  ; Disable all active themes
-                                        ;(load-theme 'tango-dark t)  ; Load the built-in theme
-                                        ;(load-theme 'modus-operandi t)  ; Load the built-in theme
-(load-theme 'adwaita t)
-
 (use-package vertico
   ;; (Note: It is recommended to also enable the savehist package.)
   :ensure t
@@ -119,12 +110,6 @@
   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
   (add-to-list 'completion-at-point-functions #'cape-file)
   )
-
-;; Orderless - Matching flessibile
-(use-package orderless
-  :ensure t
-  :custom
-  (completion-styles '(orderless basic)))
 
 (use-package yasnippet
   ;; yasnippet

@@ -1,5 +1,14 @@
 ;;; ales-config.el -- single configuration
 
+;; display time in the modeline
+(add-hook 'after-init-hook #'display-time-mode)
+
+;; theme
+(mapc #'disable-theme custom-enabled-themes)  
+;; (load-theme 'tango-dark t)  ; Load the built-in theme
+;; (load-theme 'modus-operandi t)  ; Load the built-in theme
+(load-theme 'adwaita t)
+
 ;; autorevert permette il caricamento dei file
 ;; quando sono modificati
 (global-auto-revert-mode 1)
