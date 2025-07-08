@@ -11,6 +11,9 @@
 ;; loading go
 (my/load-config "single/go-config.el")
 
+;; loading go
+(my/load-config "single/c-config.el")
+
 (use-package emojify
   :ensure t
   :config
