@@ -114,6 +114,31 @@
   (add-to-list 'completion-at-point-functions #'cape-file)
   )
 
+(use-package eglot
+  :ensure t
+  :config
+  ;; Ottimizzazioni generali per performance
+  (setq eglot-events-buffer-size 0)
+  (setq eglot-sync-connect nil)
+  (setq eglot-connect-timeout 10)
+  (setq eglot-autoshutdown t)
+  (setq eglot-send-changes-idle-time 0.5)
+  
+  ;; Configurazione generale per tutti i linguaggi
+  (setq eglot-workspace-configuration
+        '((nil . ((formatting . ((tabSize . 4)
+                                 (insertSpaces . t)))))))
+  
+  ;; Keybindings comuni per tutti i linguaggi
+  (define-key eglot-mode-map (kbd "C-c d") 'eglot-find-declaration)
+  (define-key eglot-mode-map (kbd "C-c i") 'eglot-find-implementation)
+  (define-key eglot-mode-map (kbd "C-c r") 'eglot-rename)
+  (define-key eglot-mode-map (kbd "C-c f") 'eglot-format)
+  (define-key eglot-mode-map (kbd "C-c a") 'eglot-code-actions)
+  (define-key eglot-mode-map (kbd "C-c h") 'eldoc-doc-buffer)
+  (define-key eglot-mode-map (kbd "C-c n") 'flymake-goto-next-error)
+  (define-key eglot-mode-map (kbd "C-c p") 'flymake-goto-prev-error))
+
 (use-package yasnippet
   ;; yasnippet
   :ensure t
