@@ -4,7 +4,7 @@
 (set-face-attribute 'default nil 
                     ;;:family "Source Code Pro"
                     :family "DejaVu Sans Mono"
-                    :height 110)
+                    :height 100)
 ;;
 (setq org-agenda-files '("/home/ales/Work/Note"))
 
@@ -12,4 +12,6 @@
 ;;                     :family "JetBrains Mono"
 ;;                     :height 110)
 
-(setq default-directory "/home/ales/Work/")       ; Adatta al tuo username
+;;Adatta al tuo username
+(setq defaulte-directorfy "/home/ales/Work/")
+;;;

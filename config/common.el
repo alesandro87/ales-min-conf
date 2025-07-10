@@ -97,14 +97,13 @@
   )
 
 ;; Supporto per terminale - usa corfu-terminal
-;; (use-package corfu-terminal
-;;   :ensure t
-;;   :after corfu
-;;   :config
-;;   ;; Abilita corfu-terminal solo quando si usa Emacs in terminale
-;;   (unless (display-graphic-p)
-;;     (corfu-terminal-mode +1)))
-
+(use-package corfu-terminal
+  :ensure t
+  :after corfu
+  :config
+  ;; Abilita corfu-terminal solo quando si usa Emacs in terminale
+  (unless (display-graphic-p)
+    (corfu-terminal-mode +1)))
 
 ;; Cape - Estensioni completamento
 (use-package cape
@@ -114,14 +113,14 @@
   (add-to-list 'completion-at-point-functions #'cape-file)
   )
 
-(use-package flycheck
-  :ensure t
-  :init (global-flycheck-mode)
-  :config
-  ;; Disabilita flymake quando flycheck è attivo
-  (setq flycheck-check-syntax-automatically '(save mode-enabled))
-  (add-hook 'flycheck-mode-hook 
-            (lambda () (when flycheck-mode (flymake-mode -1)))))
+;; (use-package flycheck
+;;   :ensure t
+;;   :init (global-flycheck-mode)
+;;   :config
+;;   ;; Disabilita flymake quando flycheck è attivo
+;;   (setq flycheck-check-syntax-automatically '(save mode-enabled))
+;;   (add-hook 'flycheck-mode-hook 
+;;             (lambda () (when flycheck-mode (flymake-mode -1)))))
 
 (use-package projectile
   :ensure t
@@ -255,14 +254,17 @@
   (org-hide-emphasis-markers t)
   (org-fontify-emphasized-text t))
 
+;; (use-package vscode-icon
+;;   :ensure t)
+
 (use-package dired-sidebar
   :ensure t
   :bind (("M-0" . dired-sidebar-toggle-sidebar))
   :config
   (setq dired-sidebar-subtree-line-prefix "__")
-  (setq dired-sidebar-theme 'vscode)
+  ;(setq dired-sidebar-theme 'vscode)
   (setq dired-sidebar-use-term-integration t)
   (setq dired-sidebar-use-custom-font t)
-  (setq dired-sidebar-width 30 )
+  (setq dired-sidebar-width 40 )
   (setq dired-sidebar-use-term-integration t))
 
