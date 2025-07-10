@@ -114,6 +114,24 @@
   (add-to-list 'completion-at-point-functions #'cape-file)
   )
 
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode)
+  :config
+  ;; Disabilita flymake quando flycheck è attivo
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (add-hook 'flycheck-mode-hook 
+            (lambda () (when flycheck-mode (flymake-mode -1)))))
+
+(use-package projectile
+  :ensure t
+  ;; :pin melpa-stable
+  :init
+  (projectile-mode +1)
+  :bind (:map projectile-mode-map
+              ("s-p" . projectile-command-map)
+              ("C-c p" . projectile-command-map)))
+
 (use-package eglot
   :ensure t
   :config

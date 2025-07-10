@@ -13,6 +13,10 @@
   (c-set-offset 'access-label -2)
   (c-set-offset 'case-label 0))
 
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-server-programs
+               '((c++-mode c-mode) . ("clangd" "--compile-commands-dir=build-arm"))))
+
 ;; Hook per C++
 (defun my-cpp-mode-hook ()
   "Hook personalizzato per C++"
