@@ -12,6 +12,7 @@
 ;; autorevert permette il caricamento dei file
 ;; quando sono modificati
 (global-auto-revert-mode 1)
+(electric-pair-mode t)
 
 ;; Configurazioni UI comuni
 (setq inhibit-startup-message t)
