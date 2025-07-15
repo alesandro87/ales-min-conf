@@ -68,9 +68,10 @@
   :bind
   (:map corfu-map
         ("TAB" . corfu-insert)     ; TAB per completare
-        ([tab] . corfu-insert)     ; TAB alternativo
-        ("RET" . nil)              ; Disabilita completamento con Invio
-        ("<return>" . nil))
+        ([tab] . corfu-insert))     ; TAB alternativo
+        ;("RET" . nil)              ; Disabilita completamento con Invio
+        ;("<return>" . nil)
+        
   
         ;("TAB" . corfu-next)
         ;("S-TAB" . corfu-previous)
@@ -84,7 +85,7 @@
                                               #'cape-file        ; Percorsi file
                                               #'cape-dict        ; Dizionario parole
                                               ;; #'cape-emoji
-                                              ))))   
+                                              ))))
 
          (org-mode . (lambda ()
                        (setq-local completion-at-point-functions

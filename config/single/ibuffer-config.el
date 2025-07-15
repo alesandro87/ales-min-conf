@@ -15,9 +15,10 @@
                         (name . "^\\*Messages\\*$")))
            ("shell" (or (mode . eshell-mode)
                         (mode . shell-mode)))
-           ("dev" (or (mode . python-mode)
+           ("c++" (or ;(mode . python-mode)
                       (mode . c++-mode)
-                      (mode . emacs-lisp-mode)))
+                      ;(mode . emacs-lisp-mode)
+                      (mode . cmake-mode)))
            ("altro" (starred-name . ".*")))))
   (add-hook 'ibuffer-mode-hook
             (lambda ()
