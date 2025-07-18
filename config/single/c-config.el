@@ -21,6 +21,7 @@
 (defun my-cpp-mode-hook ()
   "Hook personalizzato per C++"
   (eglot-ensure)
+  (electric-pair-mode 1)
   ;(my-cpp-eglot-config)
    
   ;; Keybindings specifici per C++
