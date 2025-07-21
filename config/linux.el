@@ -2,9 +2,9 @@
 
 ;; font per linux
 (set-face-attribute 'default nil 
-                    ;;:family "Source Code Pro"
-                    :family "DejaVu Sans Mono"
-                    :height 100)
+                    :family "Fira Code"
+                    ;;:family "DejaVu Sans Mono"
+                    :height 110)
 ;;
 (setq org-agenda-files '("/home/ales/Work/Note"))
 
