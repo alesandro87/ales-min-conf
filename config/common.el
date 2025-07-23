@@ -14,6 +14,9 @@
 ;; loading go
 (my/load-config "single/c-config.el")
 
+;; loading latex
+(my/load-config "single/latex-config.el")
+
 (use-package emojify
   :ensure t
   :config
@@ -267,5 +270,4 @@
   (setq dired-sidebar-use-term-integration t)
   (setq dired-sidebar-use-custom-font t)
   (setq dired-sidebar-width 40 )
-  (setq dired-sidebar-use-term-integration t))
-
+  (setq dired-sidebar-use-term-integration t)) 
