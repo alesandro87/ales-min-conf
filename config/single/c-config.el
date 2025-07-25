@@ -32,6 +32,18 @@
 (add-hook 'c++-mode-hook 'my-cpp-mode-hook)
 (add-hook 'c-mode-hook 'my-cpp-mode-hook)
 
+;; Clang-format
+(use-package clang-format
+  :ensure t
+  :bind (:map c-mode-base-map
+              ("C-c f" . clang-format-buffer))
+  :config
+  ;; Abilita clang-format su save (opzionale)
+  ;; (add-hook 'before-save-hook #'clang-format-buffer nil t)
+  (add-hook 'c-mode-common-hook
+            (lambda ()
+              (clang-format-on-save-mode 1)))) ;; formato automatico al save
+
 ;; Configurazione per CMake
 (use-package cmake-mode
   :ensure t
