@@ -17,6 +17,9 @@
 ;; loading latex
 (my/load-config "single/latex-config.el")
 
+;; loading qtcreator-config 
+(my/load-config "single/qtcreator-config.el")
+
 (use-package emojify
   :ensure t
   :config
