@@ -49,6 +49,3 @@
   :ensure t
   :mode ("CMakeLists\\.txt\\'" "\\.cmake\\'"))
 
-(use-package qml-mode
-  :ensure t
-  :mode "\\.qml\\'")
