@@ -23,7 +23,10 @@
   (eglot-ensure)
   (electric-pair-mode 1)
   ;(my-cpp-eglot-config)
-   
+
+  ;; clang format when save c++ file
+  (add-hook 'before-save-hook  #'clang-format-buffer nil t)
+  
   ;; Keybindings specifici per C++
   (local-set-key (kbd "C-c C-c") 'compile)
   (local-set-key (kbd "C-c C-r") 'recompile)
@@ -49,6 +52,3 @@
   :ensure t
   :mode ("CMakeLists\\.txt\\'" "\\.cmake\\'"))
 
-(use-package qml-mode
-  :ensure t
-  :mode "\\.qml\\'")

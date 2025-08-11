@@ -17,6 +17,10 @@
 ;; loading latex
 (my/load-config "single/latex-config.el")
 
+;; loading qtcreator-config 
+(my/load-config "single/qtcreator-config.el")
+
+
 (use-package emojify
   :ensure t
   :config
@@ -143,7 +147,7 @@
   (setq eglot-sync-connect nil)
   (setq eglot-connect-timeout 10)
   (setq eglot-autoshutdown t)
-  (setq eglot-send-changes-idle-time 0.5)
+  (setq eglot-send-changes-idle-time 0.2)
   
   ;; Configurazione generale per tutti i linguaggi
   (setq eglot-workspace-configuration
