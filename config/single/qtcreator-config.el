@@ -7,7 +7,7 @@
   :mode "\\.qml\\'"
   :config
   (add-to-list 'eglot-server-programs
-               '(qml-mode . ("/opt/Qt/6.5.9/gcc_64/bin/qmlls")))
+               '(qml-mode . ("/usr/bin/qmlls6")))
   :hook
   (qml-mode . eglot-ensure)
   )
@@ -22,5 +22,4 @@
 
   :config
   (message "qtcreator-mode activated")
-
   )
