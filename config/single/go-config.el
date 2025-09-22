@@ -1,74 +1,56 @@
-;;; go-config.el -- single configuration for golang
+;;; go-config.el --- Configurazione Go + Debug con dape
 
 (use-package go-mode
   :ensure t
   :hook ((go-mode . eglot-ensure)
          (before-save . gofmt-before-save))
+
+  :bind (:map go-mode-map
+              ("M-?" . godoc-at-point)
+              ("M-." . xref-find-definitions)
+              ("M-_" . xref-find-references)
+              ;; ("M-*" . pop-tag-mark) ;; Jump back after godef-jump
+              ("C-c m r" . go-run))
   :config
   (setq gofmt-command "goimports"))
 
 (with-eval-after-load 'eglot
-  ;; Server per Go
+  ;; Usa gopls per Go
   (add-to-list 'eglot-server-programs
                '(go-mode . ("gopls"))))
 
-
-;; debug
-
-;; Configurazione personalizzata per Go debugging
-(with-eval-after-load 'dape
-  ;; Template per debugging di applicazioni Go
-  (add-to-list 'dape-configs
-               `(go-debug-app
-                 modes (go-mode)
-                 ensure dape-ensure-command
-                 command "dlv"
-                 command-args ("dap" "--listen" "127.0.0.1::autoport")
-                 command-cwd dape-cwd-fn
-                 port :autoport
-                 :request "launch"
-                 :type "debug"
-                 :program "."
-                 :args []
-                 :buildFlags ["-gcflags=all=-N -l"]))  ; Disabilita ottimizzazioni
-  
-  ;; Template per debugging di test
-  (add-to-list 'dape-configs
-               `(go-debug-test
-                 modes (go-mode)
-                 ensure dape-ensure-command
-                 command "dlv"
-                 command-args ("dap" "--listen" "127.0.0.1::autoport")
-                 command-cwd dape-cwd-fn
-                 port :autoport
-                 :request "launch"
-                 :type "debug"
-                 :mode "test"
-                 :program ".")))
-
-(defun go-debug-current-file ()
-  "Debug del file Go corrente usando dape."
-  (interactive)
-  (if (derived-mode-p 'go-mode)
-      (let* ((file (buffer-file-name))
-             (dir (file-name-directory file)))
-        (dape `(dlv exec ,file)))
-    (message "Non in un buffer go-mode")))
-
-(defun go-debug-current-test ()
-  "Debug del test corrente."
-  (interactive)
-  (if (and (derived-mode-p 'go-mode)
-           (string-match "_test\\.go$" (buffer-name)))
-      (dape 'go-debug-test)
-    (message "Non in un file di test Go")))
-
-(defun go-run-test-at-point ()
-  "Esegue il test alla posizione del cursore."
-  (interactive)
-  (when (derived-mode-p 'go-mode)
-    (let ((test-name (which-function)))
-      (if test-name
-          (compile (format "go test -run ^%s$ ." test-name))
-        (message "Nessun test trovato al punto corrente")))))
-
+;; (with-eval-after-load 'dape
+;;   ;; Debug configuration semplificata per Go
+;;   (add-to-list 'dape-configs
+;;                `(delve-go
+;;                  modes (go-mode go-ts-mode)
+;;                  command "dlv"
+;;                  command-args ("dap" "--listen" "127.0.0.1:55878")
+;;                  command-cwd dape-cwd-fn
+;;                  port :autoport
+;;                  :request "launch"
+;;                  :type "go"
+;;                  :name "Launch Package"
+;;                  :mode "debug"
+;;                  :program dape-cwd-fn
+;;                  :args []))
+;;   
+;;   ;; Configurazione per progetti con struttura cmd/
+;;   (add-to-list 'dape-configs
+;;                `(delve-go-cmd
+;;                  modes (go-mode go-ts-mode) 
+;;                  command "dlv"
+;;                  command-args ("dap" "--listen" "127.0.0.1:55878")
+;;                  command-cwd ,(lambda () (project-root (project-current)))
+;;                  port :autoport
+;;                  :request "launch"
+;;                  :type "go"
+;;                  :name "Launch Package"
+;;                  :mode "debug"
+;;                  :program ,(lambda ()
+;;                              (let* ((current-file (buffer-file-name))
+;;                                     (file-dir (file-name-directory current-file))
+;;                                     (project-root (project-root (project-current))))
+;;                                (file-relative-name file-dir project-root)))
+;;                  :args [])))
+;; 
