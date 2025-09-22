@@ -164,6 +164,26 @@
   (define-key eglot-mode-map (kbd "C-c n") 'flymake-goto-next-error)
   (define-key eglot-mode-map (kbd "C-c p") 'flymake-goto-prev-error))
 
+(use-package dape
+  :ensure t
+  :config
+  ;; Configurazione base
+  (setq dape-buffer-window-arrangement 'gud)
+  
+  ;; Keybindings per debug
+  :bind
+  (("C-c d d" . dape)
+   ("C-c d k" . dape-kill)
+   ("C-c d r" . dape-restart)
+   ("C-c d p" . dape-pause)
+   ("C-c d c" . dape-continue)
+   ("C-c d n" . dape-next)
+   ("C-c d s" . dape-step-in)
+   ("C-c d o" . dape-step-out)
+   ("C-c d b" . dape-breakpoint-toggle)
+   ("C-c d l" . dape-breakpoint-log)
+   ("C-c d e" . dape-evaluate-expression)))
+
 (use-package yasnippet
   ;; yasnippet
   :ensure t
