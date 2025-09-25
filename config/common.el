@@ -20,6 +20,16 @@
 ;; loading qtcreator-config 
 (my/load-config "single/qtcreator-config.el")
 
+;; custom start
+(use-package bb-mode
+  :load-path "./config/mode/"
+  :mode (("\\.bbappend\\'" . bb-mode)
+         ("\\.bb\\'" . bb-mode)
+         ("\\.inc\\'" . bb-mode)
+         ("\\.bbclass\\'" . bb-mode)
+         ("\\.conf\\'" . bb-mode))
+  :config (message "bb-mode activated"))
+;; custom end
 
 (use-package emojify
   :ensure t
@@ -76,13 +86,13 @@
   (:map corfu-map
         ("TAB" . corfu-insert)     ; TAB per completare
         ([tab] . corfu-insert))     ; TAB alternativo
-        ;("RET" . nil)              ; Disabilita completamento con Invio
-        ;("<return>" . nil)
-        
+                                        ;("RET" . nil)              ; Disabilita completamento con Invio
+                                        ;("<return>" . nil)
   
-        ;("TAB" . corfu-next)
-        ;("S-TAB" . corfu-previous)
-  ;("TAB" . corfu-insert))
+  
+                                        ;("TAB" . corfu-next)
+                                        ;("S-TAB" . corfu-previous)
+                                        ;("TAB" . corfu-insert))
 
   :hook (
          (prog-mode . corfu-mode)
@@ -204,7 +214,7 @@
   (("M-o" . org-search-view))
 
   :config
-    ;; load the correct path
+  ;; load the correct path
   ;; (setq org-agenda-files (directory-files-recursively "C:\\Users\\atanasio\\Work\\Note" "\\.org$"))
   (cond
    ((eq system-type 'windows-nt)
@@ -270,8 +280,8 @@
   :bind (("M-0" . dired-sidebar-toggle-sidebar))
   :config
   (setq dired-sidebar-subtree-line-prefix "__")
-  ;(setq dired-sidebar-theme 'vscode)
+                                        ;(setq dired-sidebar-theme 'vscode)
   (setq dired-sidebar-use-term-integration t)
   (setq dired-sidebar-use-custom-font t)
   (setq dired-sidebar-width 40 )
-  (setq dired-sidebar-use-term-integration t)) 
+  (setq dired-sidebar-use-term-integration t))
