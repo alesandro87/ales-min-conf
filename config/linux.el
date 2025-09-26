@@ -1,10 +1,16 @@
 ;;; linux.el --- Configurazioni specifiche Linux -*- lexical-binding: t; -*-
 
+;; usefull for load path zshrc or bashrc
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (exec-path-from-shell-initialize))
+
 ;; font per linux
 (set-face-attribute 'default nil 
                     :family "Fira Code"
                     ;;:family "DejaVu Sans Mono"
-                    :height 100)
+                    :height 110)
 ;;
 (setq org-agenda-files '("/home/ales/Work/Note"))
 
