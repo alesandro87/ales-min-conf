@@ -240,7 +240,8 @@
    ((eq system-type 'windows-nt)
     (setq org-agenda-files (directory-files-recursively "C:\\Users\\atanasio\\Work\\Note" "\\.org$")))
    ((eq system-type 'gnu/linux)
-    (setq org-agenda-files (directory-files-recursively "~/Work/Note/" "\\.org$")))
+    (setq org-agenda-files (directory-files-recursively "~/Work/Note/" "\\.org$"))
+    (setq org-agenda-files (directory-files-recursively "~/Work/Note/Elen/Sprint/" "\\.org$")))
    ((eq system-type 'darwin)  ; macOS
     (setq org-agenda-files (directory-files-recursively "~/Work/Note/" "\\.org$"))))
   
@@ -252,6 +253,18 @@
       (while (re-search-forward "\n\n+" nil t)
         (replace-match "\n\n"))))
 
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "IN_PROGRESS(p)" "DONE(d)")))
+  
+  (setq org-todo-keyword-faces
+      '(("TODO" . (:foreground "hot pink" :weight bold))
+        ("IN_PROGRESS" . (:foreground "yellow" :weight bold))
+        ;; ("WAITING" . (:foreground "orange" :weight bold))
+        ;; ("REVIEW" . (:foreground "cyan" :weight bold))
+        ("DONE" . (:foreground "green" :weight bold))
+        ;; ("CANCELLED" . (:foreground "red" :weight bold)
+        ))
+    
   ;; Configurazione font per emoji
   (set-fontset-font t 'symbol 
                     (cond
