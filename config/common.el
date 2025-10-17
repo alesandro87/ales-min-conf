@@ -240,9 +240,9 @@
    ((eq system-type 'windows-nt)
     (setq org-agenda-files (directory-files-recursively "C:\\Users\\atanasio\\Work\\Note" "\\.org$")))
    ((eq system-type 'gnu/linux)
-    (setq org-agenda-files (directory-files-recursively "~/Work/Note/" "\\.org$"))
-    (setq org-agenda-files (directory-files-recursively "~/Work/Note/Elen/Sprint/" "\\.org$")))
-   ((eq system-type 'darwin)  ; macOS
+    (setq org-agenda-files (directory-files-recursively "~/Work/Note/" "\\.org$")))
+    ;;(setq org-agenda-files (directory-files-recursively "~/Work/Note/Elen/Sprint/" "\\.org$")))
+    ((eq system-type 'darwin)  ; macOS
     (setq org-agenda-files (directory-files-recursively "~/Work/Note/" "\\.org$"))))
   
   ;; La tua funzione per pulire le righe vuote
