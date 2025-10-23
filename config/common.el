@@ -233,6 +233,17 @@
   :bind
   (("M-o" . org-search-view))
 
+    :config
+  ;; 🟢 AGGIUNTA: carica moduli per i grafici Org
+  ;(require 'ob-gnuplot)
+  (require 'gnuplot)
+  (require 'org-plot)
+
+  ;; 🟢 AGGIUNTA: abilita il linguaggio gnuplot in Org Babel
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((gnuplot . t)))
+
   :config
   ;; load the correct path
   ;; (setq org-agenda-files (directory-files-recursively "C:\\Users\\atanasio\\Work\\Note" "\\.org$"))
