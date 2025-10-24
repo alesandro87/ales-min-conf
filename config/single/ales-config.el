@@ -18,6 +18,9 @@
 ;; quando sono modificati
 (global-auto-revert-mode 1)
 ;(electric-pair-mode t)
+(setq text-scale-mode-step 1.05)  ; default è 1.2
+(global-set-key (kbd "C-+") 'text-scale-increase)
+(global-set-key (kbd "C--") 'text-scale-decrease)
 
 ;; Configurazioni UI comuni
 (setq inhibit-startup-message t)

@@ -288,7 +288,7 @@
         ((org-mode . (lambda ()
                        (setq-local prettify-symbols-alist
                                    '(("lambda" . ?λ)
-                                     ("->" . ?→)
+                                     ;("->" . ?→)
                                      ("map" . ?↦)
                                      ("/=" . ?≠)
                                      ("!=" . ?≠)
@@ -298,7 +298,8 @@
                                      ("&&" . ?∧)
                                      ("||" . ?∨)
                                      ("sqrt" . ?√)
-                                     ("..." . ?…)))
+                                     ;("..." . ?…)
+                                     ))
                        (prettify-symbols-mode 1)
                        (visual-line-mode 1)
                        (face-remap-add-relative 'bold :foreground "magenta")))))
