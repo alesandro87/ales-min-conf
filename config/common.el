@@ -164,15 +164,24 @@
         '((nil . ((formatting . ((tabSize . 4)
                                  (insertSpaces . t)))))))
   
-  ;; Keybindings comuni per tutti i linguaggi
-  (define-key eglot-mode-map (kbd "C-c d") 'eglot-find-declaration)
-  (define-key eglot-mode-map (kbd "C-c i") 'eglot-find-implementation)
-  (define-key eglot-mode-map (kbd "C-c r") 'eglot-rename)
-  (define-key eglot-mode-map (kbd "C-c f") 'eglot-format)
-  (define-key eglot-mode-map (kbd "C-c a") 'eglot-code-actions)
-  (define-key eglot-mode-map (kbd "C-c h") 'eldoc-doc-buffer)
-  (define-key eglot-mode-map (kbd "C-c n") 'flymake-goto-next-error)
-  (define-key eglot-mode-map (kbd "C-c p") 'flymake-goto-prev-error))
+  :bind (:map eglot-mode-map
+              ("<f4>" . projectile-find-other-file)
+              ("C-c d" . eglot-find-declaration)
+              ("C-c i" . eglot-find-implementation)
+              ("C-c r" . eglot-rename)
+              ("C-c f" . eglot-format)
+              ("C-c a" . eglot-code-actions)
+              ("C-c h" . eldoc-doc-buffer)
+              ("C-c n" . flymake-goto-next-error)
+              ("C-c p" . flymake-goto-prev-error)))
+
+(use-package imenu-list
+  :ensure t
+  :bind (("C-'"
+          . imenu-list-smart-toggle))
+  :config
+  (setq imenu-list-focus-after-activation t
+        imenu-list-auto-resize t))
 
 (use-package dape
   :ensure t
@@ -208,6 +217,9 @@
 (use-package yasnippet-snippets
   ;; load all snippet
   :ensure t
+  :config
+  (yasnippet-snippets-initialize)
+  (yas-reload-all)
   )
 
 (use-package markdown-mode
@@ -233,9 +245,9 @@
   :bind
   (("M-o" . org-search-view))
 
-    :config
+  :config
   ;; 🟢 AGGIUNTA: carica moduli per i grafici Org
-  ;(require 'ob-gnuplot)
+                                        ;(require 'ob-gnuplot)
   (require 'gnuplot)
   (require 'org-plot)
 
@@ -252,8 +264,8 @@
     (setq org-agenda-files (directory-files-recursively "C:\\Users\\atanasio\\Work\\Note" "\\.org$")))
    ((eq system-type 'gnu/linux)
     (setq org-agenda-files (directory-files-recursively "~/Work/Note/" "\\.org$")))
-    ;;(setq org-agenda-files (directory-files-recursively "~/Work/Note/Elen/Sprint/" "\\.org$")))
-    ((eq system-type 'darwin)  ; macOS
+   ;;(setq org-agenda-files (directory-files-recursively "~/Work/Note/Elen/Sprint/" "\\.org$")))
+   ((eq system-type 'darwin)  ; macOS
     (setq org-agenda-files (directory-files-recursively "~/Work/Note/" "\\.org$"))))
   
   ;; La tua funzione per pulire le righe vuote
@@ -268,14 +280,14 @@
         '((sequence "TODO(t)" "IN_PROGRESS(p)" "DONE(d)")))
   
   (setq org-todo-keyword-faces
-      '(("TODO" . (:foreground "hot pink" :weight bold))
-        ("IN_PROGRESS" . (:foreground "yellow" :weight bold))
-        ;; ("WAITING" . (:foreground "orange" :weight bold))
-        ;; ("REVIEW" . (:foreground "cyan" :weight bold))
-        ("DONE" . (:foreground "green" :weight bold))
-        ;; ("CANCELLED" . (:foreground "red" :weight bold)
-        ))
-    
+        '(("TODO" . (:foreground "hot pink" :weight bold))
+          ("IN_PROGRESS" . (:foreground "yellow" :weight bold))
+          ;; ("WAITING" . (:foreground "orange" :weight bold))
+          ;; ("REVIEW" . (:foreground "cyan" :weight bold))
+          ("DONE" . (:foreground "green" :weight bold))
+          ;; ("CANCELLED" . (:foreground "red" :weight bold)
+          ))
+  
   ;; Configurazione font per emoji
   (set-fontset-font t 'symbol 
                     (cond
@@ -288,7 +300,7 @@
         ((org-mode . (lambda ()
                        (setq-local prettify-symbols-alist
                                    '(("lambda" . ?λ)
-                                     ;("->" . ?→)
+                                        ;("->" . ?→)
                                      ("map" . ?↦)
                                      ("/=" . ?≠)
                                      ("!=" . ?≠)
@@ -298,7 +310,7 @@
                                      ("&&" . ?∧)
                                      ("||" . ?∨)
                                      ("sqrt" . ?√)
-                                     ;("..." . ?…)
+                                        ;("..." . ?…)
                                      ))
                        (prettify-symbols-mode 1)
                        (visual-line-mode 1)
