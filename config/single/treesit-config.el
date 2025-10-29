@@ -9,6 +9,7 @@
           (bash "https://github.com/tree-sitter/tree-sitter-bash")
           (python "https://github.com/tree-sitter/tree-sitter-python")))
 
+  
   ;; Rimappa automaticamente ai mode tree-sitter
   (setq major-mode-remap-alist
         '((c++-mode . c++-ts-mode)

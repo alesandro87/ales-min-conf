@@ -50,17 +50,34 @@
 (add-hook 'c++-ts-mode-hook 'my-cpp-mode-hook)
 (add-hook 'c-ts-mode-hook 'my-cpp-mode-hook)
 
-;; Clang-format
 (use-package clang-format
   :ensure t
-  :bind (:map c-mode-base-map
-              ("C-c f" . clang-format-buffer))
+  :bind ((:map c-mode-base-map
+               ("C-c f" . clang-format-buffer)
+               ("TAB" . my/clang-format-line-or-region))
+         (:map c-ts-mode-map
+               ("TAB" . my/clang-format-line-or-region))
+         (:map c++-ts-mode-map
+               ("TAB" . my/clang-format-line-or-region)))
+  :hook ((c-ts-mode . my/enable-clang-format-on-save)
+         (c++-ts-mode . my/enable-clang-format-on-save)
+         (c-mode . my/enable-clang-format-on-save)
+         (c++-mode . my/enable-clang-format-on-save))
   :config
-  ;; Abilita clang-format su save (opzionale)
-  ;; (add-hook 'before-save-hook #'clang-format-buffer nil t)
-  (add-hook 'c-mode-common-hook
-            (lambda ()
-              (clang-format-on-save-mode 1)))) ;; formato automatico al save
+  (defun my/enable-clang-format-on-save ()
+    "Abilita clang-format su save per buffer C/C++ con Tree-sitter."
+    (add-hook 'before-save-hook #'clang-format-buffer nil t))
+  
+  (defun my/clang-format-line-or-region ()
+    "Formatta la riga corrente o la regione selezionata con clang-format."
+    (interactive)
+    (if (use-region-p)
+        (clang-format-region (region-beginning) (region-end))
+      (clang-format-region (line-beginning-position) (line-end-position)))))
+
+;; Disattiva l’indentazione automatica di Tree-sitter (clang-format si occupa di tutto)
+  (setq c-ts-mode-indent-offset 0)
+  (setq c++-ts-mode-indent-offset 0)
 
 ;; Configurazione per CMake
 (use-package cmake-mode
