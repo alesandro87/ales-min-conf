@@ -1,6 +1,10 @@
 ;;; common.el --- Configurazioni comuni a tutti gli OS -*- lexical-binding: t; -*-
 
+;; loading my conf
 (my/load-config "single/ales-config.el")
+
+;; loading tresit
+(my/load-config "single/treesit-config.el")
 
 ;; loading i buffer
 (my/load-config "single/ibuffer-config.el")

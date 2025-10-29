@@ -192,11 +192,11 @@ Based on c++-mode with Qt-specific additions."
       (message "Cannot enable QtCreator mode - buffer is not in C/C++ mode"))))
 
 ;; Hooks for Qt files
-(add-to-list 'auto-mode-alist '("\\.h\\'" . qtcreator-mode))
-(add-to-list 'auto-mode-alist '("\\.hpp\\'" . qtcreator-mode))
-(add-to-list 'auto-mode-alist '("\\.cpp\\'" . qtcreator-mode))
-(add-to-list 'auto-mode-alist '("\\.cc\\'" . qtcreator-mode))
-(add-to-list 'auto-mode-alist '("\\.cxx\\'" . qtcreator-mode))
+;; (add-to-list 'auto-mode-alist '("\\.h\\'" . qtcreator-mode))
+;; (add-to-list 'auto-mode-alist '("\\.hpp\\'" . qtcreator-mode))
+;; (add-to-list 'auto-mode-alist '("\\.cpp\\'" . qtcreator-mode))
+;; (add-to-list 'auto-mode-alist '("\\.cc\\'" . qtcreator-mode))
+;; (add-to-list 'auto-mode-alist '("\\.cxx\\'" . qtcreator-mode))
 
 (provide 'qtcreator-mode)
 

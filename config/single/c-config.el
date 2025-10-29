@@ -1,5 +1,20 @@
 ;;; c-config.el -- single configuration
-;;; c and c++ mode 
+;;; c and c++ mode
+
+;; Tree-sitter setup
+(when (treesit-available-p)
+  ;; Installa automaticamente le grammatiche se non presenti
+  (setq treesit-language-source-alist
+        '((cpp "https://github.com/tree-sitter/tree-sitter-cpp")
+          (c "https://github.com/tree-sitter/tree-sitter-c")))
+  
+  ;; Usa tree-sitter mode di default
+  (add-to-list 'major-mode-remap-alist '(c++-mode . c++-ts-mode))
+  (add-to-list 'major-mode-remap-alist '(c-mode . c-ts-mode))
+  
+  ;; Applica gli hook anche ai mode tree-sitter
+  (add-hook 'c++-ts-mode-hook 'my-cpp-mode-hook)
+  (add-hook 'c-ts-mode-hook 'my-cpp-mode-hook))
 
 (use-package cc-mode
   :ensure nil
@@ -15,7 +30,7 @@
 
 (with-eval-after-load 'eglot
   (add-to-list 'eglot-server-programs
-               '((c++-mode c-mode) . ("clangd" "--compile-commands-dir=build-arm"))))
+               '((c++-ts-mode c-ts-mode) . ("clangd" "--compile-commands-dir=build-arm"))))
 
 ;; Hook per C++
 (defun my-cpp-mode-hook ()
@@ -32,8 +47,8 @@
   (local-set-key (kbd "C-c C-r") 'recompile)
   (local-set-key (kbd "C-c m") 'man))
 
-(add-hook 'c++-mode-hook 'my-cpp-mode-hook)
-(add-hook 'c-mode-hook 'my-cpp-mode-hook)
+(add-hook 'c++-ts-mode-hook 'my-cpp-mode-hook)
+(add-hook 'c-ts-mode-hook 'my-cpp-mode-hook)
 
 ;; Clang-format
 (use-package clang-format
