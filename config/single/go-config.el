@@ -6,9 +6,9 @@
          (before-save . gofmt-before-save))
 
   :bind (:map go-mode-map
-              ("M-?" . godoc-at-point)
+              ("M-?" . xref-find-references)
               ("M-." . xref-find-definitions)
-              ("M-_" . xref-find-references)
+              ("M-," . xref-pop-marker-stack)
               ;; ("M-*" . pop-tag-mark) ;; Jump back after godef-jump
               ("C-c m r" . go-run))
   :config
