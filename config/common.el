@@ -250,12 +250,12 @@
   (("M-o" . org-search-view))
 
   :config
-  ;; 🟢 AGGIUNTA: carica moduli per i grafici Org
+  ;; AGGIUNTA: carica moduli per i grafici Org
                                         ;(require 'ob-gnuplot)
   (require 'gnuplot)
   (require 'org-plot)
 
-  ;; 🟢 AGGIUNTA: abilita il linguaggio gnuplot in Org Babel
+  ;; AGGIUNTA: abilita il linguaggio gnuplot in Org Babel
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((gnuplot . t)))
@@ -300,25 +300,25 @@
                      ((eq system-type 'gnu/linux) "Noto Color Emoji"))
                     nil 'prepend)
   
-  :hook(
-        ((org-mode . (lambda ()
-                       (setq-local prettify-symbols-alist
-                                   '(("lambda" . ?λ)
-                                        ;("->" . ?→)
-                                     ("map" . ?↦)
-                                     ("/=" . ?≠)
-                                     ("!=" . ?≠)
-                                     ("==" . ?≡)
-                                     ("<=" . ?≤)
-                                     (">=" . ?≥)
-                                     ("&&" . ?∧)
-                                     ("||" . ?∨)
-                                     ("sqrt" . ?√)
-                                        ;("..." . ?…)
-                                     ))
-                       (prettify-symbols-mode 1)
-                       (visual-line-mode 1)
-                       (face-remap-add-relative 'bold :foreground "magenta")))))
+  ;; :hook(
+  ;;       ((org-mode . (lambda ()
+  ;;                      (setq-local prettify-symbols-alist
+  ;;                                  '(("lambda" . ?λ)
+  ;;                                       ;("->" . ?→)
+  ;;                                    ("map" . ?↦)
+  ;;                                    ("/=" . ?≠)
+  ;;                                    ("!=" . ?≠)
+  ;;                                    ("==" . ?≡)
+  ;;                                    ("<=" . ?≤)
+  ;;                                    (">=" . ?≥)
+  ;;                                    ("&&" . ?∧)
+  ;;                                    ("||" . ?∨)
+  ;;                                    ("sqrt" . ?√)
+  ;;                                       ;("..." . ?…)
+  ;;                                    ))
+  ;;                      (prettify-symbols-mode 1)
+  ;;                      (visual-line-mode 1)
+  ;;                      (face-remap-add-relative 'bold :foreground "magenta")))))
 
   :custom
   (org-hide-leading-stars t)
