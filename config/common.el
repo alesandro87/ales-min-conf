@@ -22,7 +22,10 @@
 (my/load-config "single/latex-config.el")
 
 ;; loading qtcreator-config 
-(my/load-config "single/qtcreator-config.el")
+;; (my/load-config "single/qtcreator-config.el")
+
+;; loading lisp
+(my/load-config "single/lisp-config.el")
 
 ;; custom start
 (use-package bb-mode
@@ -41,15 +44,6 @@
   (setq emojify-display-style 'unicode)
   (setq emojify-emoji-styles '(unicode))
   :hook (after-init . global-emojify-mode))
-
-;; sbcl configuration for common lisp programming
-(use-package slime
-  :ensure t
-  :config
-  (setq inferior-lisp-program "sbcl")
-  (setq slime-contribs '(slime-fancy))
-  (slime-setup '(slime-fancy slime-quicklisp slime-asdf))
-  :bind ("C-c s" . slime))
 
 (use-package vertico
   ;; (Note: It is recommended to also enable the savehist package.)
