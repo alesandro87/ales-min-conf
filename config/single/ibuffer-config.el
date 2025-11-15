@@ -8,6 +8,7 @@
   (setq ibuffer-saved-filter-groups
         '(("default"
            ("Dired" (mode . dired-mode))
+           ("Shell scripts" (mode .sh-mode))
            ("Shell" (or (mode . eshell-mode)
                         (mode . shell-mode)
                         (mode . term-mode)))
@@ -17,10 +18,12 @@
                         (mode . cmake-mode)))
            ("Emacs Lisp" (mode . emacs-lisp-mode))
            ("Lisp" (mode . lisp-mode))
-           ("Emacs internals" (or (name . "^\\*scratch\\*$")
-                                  (name . "^\\*Messages\\*$")))
+           
            ("Altro" (starred-name . ".*"))
-           ("Org" (mode . org-mode))))) ;; Org in fondo
+           ("Org" (mode . org-mode)))
+          ("Emacs internals" (or (name . "^\\*scratch\\*$")
+                                 (name . "^\\*Messages\\*$")))
+        )) ;; Org in fondo
 
   ;; Applica i gruppi quando si apre ibuffer
   (add-hook 'ibuffer-mode-hook
@@ -34,7 +37,7 @@
   ;; Formato delle colonne
   (setq ibuffer-formats
         '((mark modified read-only locked " "
-                (name 25 25 :left :elide)
+                (name 40 40 :left :elide)
                 " "
                 (size 9 -1 :right)
                 " "
