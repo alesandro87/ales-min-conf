@@ -3,6 +3,13 @@
 ;; display time in the modeline
 (add-hook 'after-init-hook #'display-time-mode)
 
+;; Enable `auto-save-mode' to prevent data loss. Use `recover-file' or
+;; `recover-session' to restore unsaved changes.
+(setq auto-save-default t)
+
+(setq auto-save-interval 300)
+(setq auto-save-timeout 30)
+
 ;; theme
 ;(mapc #'disable-theme custom-enabled-themes)  
 ;; (load-theme 'tango-dark t)  ; Load the built-in theme
