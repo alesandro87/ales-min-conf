@@ -13,3 +13,5 @@
 (require 'org-config)
 (require 'ibuffer-config)
 (provide 'utils-config)
+(provide 'bb-config)
+(provide 'imenu-list-config)

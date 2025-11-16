@@ -5,6 +5,10 @@
 (add-to-list 'load-path (expand-file-name "./ales-min-conf/standard-config/utils" user-emacs-directory))
 
 (require 'ales-config) ;; load ales configuration, custom shortcut and other simple thinks
+
+(if (my/is-linux-p)
+    (require 'linux))
+    
 (require 'utils-config) ;; load vertico orderless and marginalia
 (require 'programming-config) 
 
