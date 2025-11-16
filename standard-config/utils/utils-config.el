@@ -10,5 +10,6 @@
 (require 'vertico-config)
 (require 'marginalia-config)
 (require 'orderless-config)
-         
+(require 'org-config)
+
 (provide 'utils-config)
