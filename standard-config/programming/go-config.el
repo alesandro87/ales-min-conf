@@ -1,6 +1,7 @@
 (use-package go-mode
   :ensure t
-  :hook ((go-mode . eglot-ensure)
+  :hook (
+         (go-mode . eglot-ensure)
          (before-save . gofmt-before-save))
 
   :bind (:map go-mode-map
@@ -11,5 +12,11 @@
               ("C-c m r" . go-run))
   :config
   (setq gofmt-command "goimports"))
+
+;; hook per go
+(with-eval-after-load 'eglot
+  ;; Usa gopls per Go
+  (add-to-list 'eglot-server-programs
+               '(go-mode . ("gopls"))))
 
 (provide 'go-config)

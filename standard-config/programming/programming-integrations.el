@@ -21,6 +21,12 @@
 (add-hook 'c++-ts-mode-hook 'my-cpp-mode-hook)
 (add-hook 'c-ts-mode-hook 'my-cpp-mode-hook)
 
+(defun my-go-mode-hook()
+  (eglot-ensure)
+  (electric-pair-mode 1))
+
+(add-hook 'go-mode 'my-go-mode-hook)
+
 ;; hook for org-mode
 (add-hook 'org-mode-hook (lambda ()                                                 
                            (setq-local completion-at-point-functions                
@@ -30,11 +36,7 @@
                                              ;; #'cape-emoji                        
                                              ))))                                   
 
-;; hook per go
-(with-eval-after-load 'eglot
-  ;; Usa gopls per Go
-  (add-to-list 'eglot-server-programs
-               '(go-mode . ("gopls"))))
+
 
 
 (provide 'programming-integrations)
