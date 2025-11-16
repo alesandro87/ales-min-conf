@@ -12,6 +12,7 @@
 (require 'orderless-config)
 (require 'org-config)
 (require 'ibuffer-config)
+(require 'bb-config)
+(require 'imenu-list-config)
+
 (provide 'utils-config)
-(provide 'bb-config)
-(provide 'imenu-list-config)
