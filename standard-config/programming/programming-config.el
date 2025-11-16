@@ -1,9 +1,8 @@
-
-
 (require 'eglot-config)
 (require 'corfu-config)
-(require 'c-config)
 (require 'treesit-config)
+(require 'c-config)
+(require 'go-config)
 
 (require 'programming-integrations)
 

@@ -11,5 +11,5 @@
 (require 'marginalia-config)
 (require 'orderless-config)
 (require 'org-config)
-
+(require 'ibuffer-config)
 (provide 'utils-config)

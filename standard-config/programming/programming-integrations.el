@@ -8,7 +8,7 @@
   "Hook personalizzato per C++"
   (eglot-ensure)
   (electric-pair-mode 1)
-  ;(my-cpp-eglot-config)
+                                        ;(my-cpp-eglot-config)
 
   ;; clang format when save c++ file
   (add-hook 'before-save-hook  #'clang-format-buffer nil t)
@@ -22,7 +22,6 @@
 (add-hook 'c-ts-mode-hook 'my-cpp-mode-hook)
 
 ;; hook for org-mode
-
 (add-hook 'org-mode-hook (lambda ()                                                 
                            (setq-local completion-at-point-functions                
                                        (list #'cape-dabbrev     ; Parole già scritte
@@ -30,5 +29,12 @@
                                              #'cape-dict        ; Dizionario parole 
                                              ;; #'cape-emoji                        
                                              ))))                                   
+
+;; hook per go
+(with-eval-after-load 'eglot
+  ;; Usa gopls per Go
+  (add-to-list 'eglot-server-programs
+               '(go-mode . ("gopls"))))
+
 
 (provide 'programming-integrations)
