@@ -1,12 +1,15 @@
 ;;; post-init.el --- Configurazione principale cross-platform -*- lexical-binding: t; no-byte-compile: t; -*-
 
-;; aggiunge la cartella config al path
-(add-to-list 'load-path (expand-file-name "./ales-min-conf/config/" user-emacs-directory))
+;; add to path
+(add-to-list 'load-path (expand-file-name "./ales-min-conf/small-config/" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "./ales-min-conf/standard-config/" user-emacs-directory))
 
+;; read the env and choose the right configuration
 (let ((small-config (getenv "SMALL")))
   (if (string= small-config "yes")
-      ;; Modalità small: carica solo small.el
-      (require 'small)))
+      (require 'small-config)
+  (require 'standard-config)))
+
 ;      (my/load-config "small.el")))
 
     ;; Modalità normale: carica tutte le configurazioni

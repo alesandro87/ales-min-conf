@@ -45,4 +45,4 @@
   ;; A global mode that compiles .el files before they are loaded.
   (compile-angel-on-load-mode))
 
-(provide 'small)
+(provide 'small-config)

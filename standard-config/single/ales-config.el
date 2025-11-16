@@ -94,3 +94,4 @@
 
 (*-and-replace calc-eval-region #'calc-eval)
 
+(provide 'ales-config)
