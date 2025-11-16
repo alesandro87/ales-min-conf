@@ -23,5 +23,6 @@
 ;;        ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
 
 ;; Ottimizzazioni GC comuni
-(setq gc-cons-threshold 100000000)
-(setq read-process-output-max (* 1024 1024))
+;; PERFORMANCE METTERLI IN UN FILE A PARTE TODO
+                                        ;(setq gc-cons-threshold 100000000)
+                                        ;(setq read-process-output-max (* 1024 1024))
