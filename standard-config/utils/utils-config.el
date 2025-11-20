@@ -14,5 +14,6 @@
 (require 'ibuffer-config)
 (require 'bb-config)
 (require 'imenu-list-config)
+(require 'yasnippet-config)
 
 (provide 'utils-config)
