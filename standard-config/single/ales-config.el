@@ -65,7 +65,7 @@
 (global-set-key (kbd "C-c e") 'eshell)
 ;; dired
 (with-eval-after-load 'dired
-  (define-key dired-mode-map (kbd "M-p") 'dired-up-directory))
+  (define-key dired-mode-map (kbd "M-<up>") 'dired-up-directory))
 
 ;; example function
 (defun erik()
