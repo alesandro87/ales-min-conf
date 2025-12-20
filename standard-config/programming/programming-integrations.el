@@ -11,7 +11,7 @@
                                         ;(my-cpp-eglot-config)
 
   ;; clang format when save c++ file
-  (add-hook 'before-save-hook  #'clang-format-buffer nil t)
+  ;; (add-hook 'before-save-hook  #'clang-format-buffer nil t)
   
   ;; Keybindings specifici per C++
   (local-set-key (kbd "C-c C-c") 'compile)
@@ -35,8 +35,5 @@
                                              #'cape-dict        ; Dizionario parole 
                                              ;; #'cape-emoji                        
                                              ))))                                   
-
-
-
 
 (provide 'programming-integrations)
