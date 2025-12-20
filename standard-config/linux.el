@@ -30,3 +30,5 @@
   (setq vterm-keymap-exceptions nil)
   ;;Scorciatoia: Ctrl-c t apre vterm
   (global-set-key (kbd "C-c t") #'vterm))
+
+(provide 'linux)

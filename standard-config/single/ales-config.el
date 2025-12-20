@@ -3,6 +3,13 @@
 ;; display time in the modeline
 (add-hook 'after-init-hook #'display-time-mode)
 
+;; Enable `auto-save-mode' to prevent data loss. Use `recover-file' or
+;; `recover-session' to restore unsaved changes.
+(setq auto-save-default t)
+
+(setq auto-save-interval 300)
+(setq auto-save-timeout 30)
+
 ;; theme
 ;(mapc #'disable-theme custom-enabled-themes)  
 ;; (load-theme 'tango-dark t)  ; Load the built-in theme
@@ -58,7 +65,7 @@
 (global-set-key (kbd "C-c e") 'eshell)
 ;; dired
 (with-eval-after-load 'dired
-  (define-key dired-mode-map (kbd "M-p") 'dired-up-directory))
+  (define-key dired-mode-map (kbd "M-<up>") 'dired-up-directory))
 
 ;; example function
 (defun erik()
@@ -94,3 +101,4 @@
 
 (*-and-replace calc-eval-region #'calc-eval)
 
+(provide 'ales-config)
