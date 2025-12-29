@@ -6,7 +6,7 @@
 ;; Enable `auto-save-mode' to prevent data loss. Use `recover-file' or
 ;; `recover-session' to restore unsaved changes.
 (setq auto-save-default t)
-
+(electric-pair-mode 1)
 (setq auto-save-interval 300)
 (setq auto-save-timeout 30)
 
