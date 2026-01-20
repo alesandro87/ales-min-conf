@@ -4,7 +4,7 @@ t;; Tree-sitter setup
   ;; Installa automaticamente le grammatiche se non presenti
   (setq treesit-language-source-alist
         '((cpp "https://github.com/tree-sitter/tree-sitter-cpp")
-          (c "https://github.com/tree-sitter/tree-sitter-c")
+          ;(c "https://github.com/tree-sitter/tree-sitter-c")
           ;(common-lisp "https://github.com/thehamsta/tree-sitter-commonlisp")
           (bash "https://github.com/tree-sitter/tree-sitter-bash")
           (python "https://github.com/tree-sitter/tree-sitter-python")))
@@ -13,7 +13,7 @@ t;; Tree-sitter setup
   ;; Rimappa automaticamente ai mode tree-sitter
   (setq major-mode-remap-alist
         '((c++-mode . c++-ts-mode)
-          (c-mode . c-ts-mode)
+          (c-mode . c-mode)
           ;(common-lisp-mode . common-lisp-ts-mode)
           (python-mode . python-ts-mode)
           (bash-mode . bash-ts-mode))))
