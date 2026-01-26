@@ -8,6 +8,7 @@
 ;; (message "utils config loaded")
 
 (require 'vertico-config)
+(require 'consult-config)
 (require 'marginalia-config)
 (require 'orderless-config)
 (require 'org-config)
