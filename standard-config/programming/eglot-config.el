@@ -29,6 +29,7 @@
               ("C-c r" . eglot-rename)
               ("C-c f" . eglot-format)
               ("C-c a" . eglot-code-actions)
+              ("M-RET" . eglot-code-action-quickfix)
               ;; ("C-c h" . eldoc-doc-buffer)
               ;; ("C-c n" . flymake-goto-next-error)
               ;; ("C-c p" . flymake-goto-prev-error)))

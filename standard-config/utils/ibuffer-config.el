@@ -14,8 +14,8 @@
                         (mode . term-mode)))
            ("Yocto" (or (mode . bb-mode)))
            ("C/C++" (or (mode . c-mode)
-                        (mode . c++-mode)
-                        (mode . cmake-mode)))
+                        (mode . c++-mode)))
+           ("CMake" (or (mode . cmake-mode)))
            ("Emacs Lisp" (mode . emacs-lisp-mode))
            ("Lisp" (mode . lisp-mode))
            
@@ -23,7 +23,7 @@
            ("Org" (mode . org-mode)))
           ("Emacs internals" (or (name . "^\\*scratch\\*$")
                                  (name . "^\\*Messages\\*$")))
-        )) ;; Org in fondo
+          )) ;; Org in fondo
 
   ;; Applica i gruppi quando si apre ibuffer
   (add-hook 'ibuffer-mode-hook
