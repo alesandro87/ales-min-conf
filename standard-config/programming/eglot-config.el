@@ -18,9 +18,9 @@
   (setq eglot-send-changes-idle-time 0.2)
   
   ;; Configurazione generale per tutti i linguaggi
-  (setq eglot-workspace-configuration
-        '((nil . ((formatting . ((tabSize . 4)
-                                 (insertSpaces . t)))))))
+  ;; (setq eglot-workspace-configuration
+  ;;       '((nil . ((formatting . ((tabSize . 4)
+  ;;                               (insertSpaces . t)))))))
   
   :bind (:map eglot-mode-map
               ;; ("<f4>" . projectile-find-other-file)

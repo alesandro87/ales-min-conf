@@ -16,5 +16,6 @@
 (require 'bb-config)
 (require 'imenu-list-config)
 (require 'yasnippet-config)
+(require 'gptel-config)
 
 (provide 'utils-config)
