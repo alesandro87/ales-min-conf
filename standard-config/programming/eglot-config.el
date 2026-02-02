@@ -16,6 +16,15 @@
   (setq eglot-connect-timeout 10)
   (setq eglot-autoshutdown t)
   (setq eglot-send-changes-idle-time 0.2)
+
+  ;; Disabilita la formattazione automatica
+  ;; (setq eglot-ignored-server-capabilities 
+  ;;       '(:documentOnTypeFormattingProvider 
+  ;;         :documentRangeFormattingProvider 
+  ;;         :documentFormattingProvider))
+
+  (setq eglot-ignored-server-capabilities 
+      '(:documentOnTypeFormattingProvider))
   
   ;; Configurazione generale per tutti i linguaggi
   ;; (setq eglot-workspace-configuration
