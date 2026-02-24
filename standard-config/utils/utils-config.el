@@ -17,5 +17,6 @@
 (require 'imenu-list-config)
 (require 'yasnippet-config)
 (require 'gptel-config)
+(require 'multi-vterm-config)
 
 (provide 'utils-config)

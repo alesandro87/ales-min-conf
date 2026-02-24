@@ -12,8 +12,6 @@
     
 (require 'utils-config) ;; load vertico orderless and marginalia
 (require 'programming-config)
-
 (require 'bb-mode)
-
 
 (provide 'standard-config)

@@ -19,7 +19,7 @@
            ("CMake" (or (mode . cmake-mode)))
            ("Emacs Lisp" (mode . emacs-lisp-mode))
            ("Lisp" (mode . lisp-mode))
-           
+           ("VTerm" (mode . vterm-mode))
            ("Altro" (starred-name . ".*"))
            ("Org" (mode . org-mode)))
           ("Emacs internals" (or (name . "^\\*scratch\\*$")
