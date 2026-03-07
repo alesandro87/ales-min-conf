@@ -16,7 +16,7 @@
 
 (defun my-cmake-configure (root)
   (interactive "DProject root: ")
-  (let ((build-dir (concat root "build")))
+  (let ((build-dir (concat root "mbuild")))
     (unless (file-exists-p build-dir)
       (make-directory build-dir))
     (compile (format "cmake -S %s -B %s" root build-dir))))
@@ -31,6 +31,7 @@
 
 (global-set-key (kbd "C-c m c") #'my-cmake-configure)
 (global-set-key (kbd "C-c m b") #'my-cmake-build)
+
 ;; (global-set-key (kbd "C-c m k") #'my-cmake-clean)
 ;; (global-set-key (kbd "C-c m r") #'recompile)
 

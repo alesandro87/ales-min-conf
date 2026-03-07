@@ -14,6 +14,7 @@
   ;; (add-hook 'before-save-hook #'clang-format-buffer nil t)
   
   ;; Keybindings specifici per C/C++
+  (local-set-key (kbd "C-c o") 'ff-find-other-file)
   (local-set-key (kbd "C-c C-c") 'compile)
   (local-set-key (kbd "C-c C-r") 'recompile)
   (local-set-key (kbd "C-c m") 'man))
