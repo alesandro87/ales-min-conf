@@ -6,11 +6,14 @@
   :config
   (exec-path-from-shell-initialize))
 
-;; font per linux
-(set-face-attribute 'default nil 
-                    :family "Hack"
-                    ;;:family "DejaVu Sans Mono"
+(set-face-attribute 'default nil
+                    :family "Fira Code"
                     :height 110)
+
+(add-to-list 'default-frame-alist
+             '(font . "Fira Code-11"))
+
+(setq-default line-spacing 2)
 
 ;; Font adattivo ai DPI del monitor
 ;; (defun my/font-size-from-display ()
@@ -45,7 +48,7 @@
 ;;                     :height 110)
 
 ;;Adatta al tuo username
-(setq defaulte-directorfy "/home/ales/Work/")
+(setq defaulte-directory "/home/ales/Work/")
 ;;;
 
 ;; (use-package vterm
