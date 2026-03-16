@@ -7,6 +7,7 @@
   ;; Gruppi personalizzati (Org in fondo)
   (setq ibuffer-saved-filter-groups
         '(("default"
+           ("Go" (or (mode . go-mode)))
            ("C/C++" (or (mode . c-mode)
                         (mode . c++-mode)
                         (mode . c++-ts-mode)))
