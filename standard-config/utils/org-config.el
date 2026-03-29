@@ -9,19 +9,18 @@
   (("M-o" . org-search-view))
 
   :config
-  ;; AGGIUNTA: carica moduli per i grafici Org
-                                        ;(require 'ob-gnuplot)
+  ;; Carica moduli per i grafici Org
   (require 'gnuplot)
   (require 'org-plot)
 
-  ;; AGGIUNTA: abilita il linguaggio gnuplot in Org Babel
+  ;; Abilita i linguaggi in Org Babel
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((gnuplot . t)))
+   '((gnuplot . t)
+     (emacs-lisp . t)
+     (shell . t)))
 
-  :config
-  ;; load the correct path
-  ;; (setq org-agenda-files (directory-files-recursively "C:\\Users\\atanasio\\Work\\Note" "\\.org$"))
+  ;; Percorso dei file org-agenda per piattaforma
   (cond
    ((eq system-type 'windows-nt)
     (setq org-agenda-files (directory-files-recursively "C:\\Users\\atanasio\\Work\\Note" "\\.org$")))

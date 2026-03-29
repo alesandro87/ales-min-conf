@@ -6,12 +6,14 @@
   :config
   (exec-path-from-shell-initialize))
 
-(set-face-attribute 'default nil
-                    :family "Fira Code"
-                    :height 110)
-
-(add-to-list 'default-frame-alist
-             '(font . "Fira Code-11"))
+;; Usa Fira Code se disponibile, altrimenti DejaVu Sans Mono come fallback
+(let ((preferred-font (cond
+                       ((member "Fira Code" (font-family-list)) "Fira Code")
+                       ((member "JetBrains Mono" (font-family-list)) "JetBrains Mono")
+                       ((member "DejaVu Sans Mono" (font-family-list)) "DejaVu Sans Mono")
+                       (t "monospace"))))
+  (set-face-attribute 'default nil :family preferred-font :height 110)
+  (add-to-list 'default-frame-alist `(font . ,(concat preferred-font "-11"))))
 
 (setq-default line-spacing 2)
 
@@ -48,7 +50,7 @@
 ;;                     :height 110)
 
 ;;Adatta al tuo username
-(setq defaulte-directory "/home/ales/Work/")
+(setq default-directory "/home/ales/Work/")
 ;;;
 
 ;; (use-package vterm
