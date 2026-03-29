@@ -1,12 +1,8 @@
 (use-package gptel
-  :ensure t
   :config
-  
-  (setq gptel-model 'sonar
-        gptel-backend (gptel-make-perplexity "Perplexity"
-                        :key (getenv "PERPLEXITY_API_KEY")
-                        :stream t)))
+  (setq gptel-backend (gptel-make-anthropic "Claude"
+                        :key (getenv "CLAUDE_API_KEY")
+                        :stream t)
+        gptel-model 'claude-haiku-4-5))
 
 (provide 'gptel-config)
-
-
