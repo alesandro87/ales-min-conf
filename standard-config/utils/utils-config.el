@@ -18,5 +18,8 @@
 (require 'yasnippet-config)
 (require 'gptel-config)
 (require 'multi-vterm-config)
+;; (require 'plantuml-config)
+(require 'mermaid-config)
+;; (require 'agentshell-config)
 
 (provide 'utils-config)
