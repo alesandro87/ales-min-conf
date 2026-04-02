@@ -17,6 +17,7 @@
 (require 'imenu-list-config)
 (require 'yasnippet-config)
 (require 'gptel-config)
+(require 'aicode-config)
 (require 'multi-vterm-config)
 ;; (require 'plantuml-config)
 (require 'mermaid-config)

@@ -1,4 +1,4 @@
-(use-package gptel
+(use-package gptel                      ;
   :config
   (let* ((claude  (gptel-make-anthropic "Claude"
                     :key (getenv "CLAUDE_API_KEY")
