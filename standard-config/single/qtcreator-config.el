@@ -5,12 +5,16 @@
 (use-package qml-mode
   :ensure t
   :mode "\\.qml\\'"
-  :config
-  (add-to-list 'eglot-server-programs
-               '(qml-mode . ("/usr/bin/qmlls6")))
   :hook
   (qml-mode . eglot-ensure)
-  )
+  :config
+  (with-eval-after-load 'eglot
+    (when-let ((server-contact
+                (when-let ((server (or (executable-find "qmlls6")
+                                       (executable-find "qmlls"))))
+                  (list server))))
+      (add-to-list 'eglot-server-programs
+                   `(qml-mode . ,server-contact)))))
 
 
 (use-package qtcreator-mode
