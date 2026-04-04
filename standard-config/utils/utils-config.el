@@ -11,6 +11,7 @@
 (require 'consult-config)
 (require 'marginalia-config)
 (require 'orderless-config)
+(require 'projectile-config)
 (require 'org-config)
 (require 'ibuffer-config)
 (require 'bb-config)
