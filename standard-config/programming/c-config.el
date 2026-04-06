@@ -32,6 +32,12 @@
 (global-set-key (kbd "C-c m c") #'my-cmake-configure)
 (global-set-key (kbd "C-c m b") #'my-cmake-build)
 
+;; Configurazione Eglot per C e C++
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-server-programs
+               '((c++-ts-mode c-mode) . ("clangd" "--compile-commands-dir=./"))))
+
+
 ;; (global-set-key (kbd "C-c m k") #'my-cmake-clean)
 ;; (global-set-key (kbd "C-c m r") #'recompile)
 

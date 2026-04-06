@@ -1,7 +1,8 @@
 (use-package corfu
   :ensure t
-  :init
-  (global-corfu-mode)
+  :hook ((prog-mode . corfu-mode)
+         (org-mode . corfu-mode)
+         (text-mode . corfu-mode))
 
   :custom
   (corfu-auto t)                 ; Completamento automatico

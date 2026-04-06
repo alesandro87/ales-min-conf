@@ -1,10 +1,5 @@
 ;;; programming-integrations.el -- Programming mode configurations
 
-;; Configurazione Eglot per C e C++
-(with-eval-after-load 'eglot
-  (add-to-list 'eglot-server-programs
-               '((c++-ts-mode c-mode) . ("clangd" "--compile-commands-dir=build-arm"))))
-
 ;; Hook per C e C++
 (defun my-cpp-mode-hook ()
   "Hook personalizzato per C e C++"

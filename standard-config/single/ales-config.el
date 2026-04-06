@@ -16,10 +16,16 @@
 ;; (load-theme 'modus-operandi t)  ; Load the built-in theme
 ;(load-theme 'adwaita t)
 
-(use-package monokai-pro-theme
+;; (use-package monokai-pro-theme
+;;   :ensure t
+;;   :config
+;;   (load-theme 'monokai-pro t))
+
+(use-package modus-themes
   :ensure t
   :config
-  (load-theme 'monokai-pro t))
+  (load-theme 'modus-vivendi t))
+  ;;(load-theme 'modus-vivendi-tinted t))
 
 ;; autorevert permette il caricamento dei file
 ;; quando sono modificati
@@ -34,32 +40,6 @@
 (setq ring-bell-function 'ignore)
 (global-display-line-numbers-mode 1)
 (column-number-mode 1)
-
-;; Versione per terminale MSYS (per tema chiaro)
-;; (if (getenv "MSYSTEM")
-;;     (custom-set-faces
-;;      '(line-number ((t (:foreground "brightblack"))))
-;;      '(line-number-current-line ((t (:foreground "white" :weight bold)))))
-;;   ;; Versione per GUI Windows
-;;   (custom-set-faces
-;;    '(line-number ((t (:foreground "#a1a1aa" 
-;;                                   :background "#f4f4f5"))))
-;;    '(line-number-current-line ((t (:foreground "#71717a" 
-;;                                                :background "#e4e4e7"))))))
-
-;; Versione per terminale MSYS
-(if (getenv "MSYSTEM")
-    ;; Terminale: usa colori ANSI simili al Monokai Pro
-    (custom-set-faces
-     '(line-number ((t (:foreground "brightblack"))))
-     '(line-number-current-line ((t (:foreground "white" :weight bold)))))
-  ;; Versione per GUI Windows: palette Monokai Pro
-  (custom-set-faces
-   '(line-number ((t (:foreground "#5b6268"    ;; grigio spento
-                                  :background "#2d2a2e")))) ;; fondo scuro
-   '(line-number-current-line ((t (:foreground "#f92672"  ;; rosa acceso
-                                               :background "#3e3b3f" 
-                                               :weight bold))))))
 
 ;; custom shortcut
 (global-set-key (kbd "C-c e") 'eshell)
@@ -84,7 +64,6 @@
      ((= num 4) (message "Hai 5 euro?"))
      ((= num 5) (message "PAUSAAAA ORA?!"))
      (t (message "Numero non valido, devi inserire da 1 a 5 COGLIONE")))))
-
 
 ;; you can select region and calculate the math operation
 ;; 1 + 1 = 2
