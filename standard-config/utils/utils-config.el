@@ -22,6 +22,8 @@
 (require 'multi-vterm-config)
 ;; (require 'plantuml-config)
 (require 'mermaid-config)
+(require 'diredsidebar-config)
+
 ;; (require 'agentshell-config)
 
 (provide 'utils-config)
