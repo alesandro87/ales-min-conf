@@ -20,8 +20,8 @@
 (require 'gptel-config)
 (require 'aicode-config)
 (require 'multi-vterm-config)
-;; (require 'plantuml-config)
-(require 'mermaid-config)
+(require 'plantuml-config)
+;;(require 'mermaid-config)
 (require 'diredsidebar-config)
 
 ;; (require 'agentshell-config)
