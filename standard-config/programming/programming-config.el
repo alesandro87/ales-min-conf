@@ -6,6 +6,7 @@
 (require 'go-config)
 (require 'lisp-config)
 (require 'qml-config)
+; (require 'python-config)
 
 (require 'programming-integrations)
 (provide 'programming-config)
