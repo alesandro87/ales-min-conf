@@ -6,7 +6,9 @@
   ("\\.org\\'" . org-mode)
 
   :bind
-  (("M-o" . org-search-view))
+  (:map org-mode-map
+        ("M-o" . org-search-view)
+        ("M-g i" . consult-org-heading))
 
   :config
   ;; Carica moduli per i grafici Org
