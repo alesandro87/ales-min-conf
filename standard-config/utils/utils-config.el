@@ -23,6 +23,7 @@
 (require 'plantuml-config)
 ;;(require 'mermaid-config)
 (require 'diredsidebar-config)
+(require 'mysidebar-config)
 
 ;; (require 'agentshell-config)
 
