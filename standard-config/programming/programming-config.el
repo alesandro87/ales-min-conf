@@ -1,3 +1,4 @@
+(require 'gdb-config)
 (require 'eglot-config)
 (require 'corfu-config)
 (require 'treesit-config)
@@ -6,7 +7,7 @@
 (require 'go-config)
 (require 'lisp-config)
 (require 'qml-config)
-; (require 'python-config)
+(require 'python-config)
 
 (require 'programming-integrations)
 (provide 'programming-config)
