@@ -13,13 +13,14 @@
           (setq-local left-margin-width 0)
           (setq-local right-margin-width 0)
           (read-only-mode 1))
-        (display-buffer-in-side-window
-         buf
-         `((side . left)
-           (slot . -1)
-           (window-width . ,width)))))))
+        (let ((win (display-buffer-in-side-window
+                    buf
+                    `((side . left)
+                      (slot . -1)
+                      (window-width . ,width)))))
+          (set-window-parameter win 'no-other-window t))))))
 
-                                        ;   dmap-global-set "M-9" #'my/toggle-left-padding )
+
 (keymap-global-set "M-9" (lambda () (interactive) (my/toggle-left-padding 40)))
 (keymap-global-set "M-8" (lambda () (interactive) (my/toggle-left-padding 20)))
 
