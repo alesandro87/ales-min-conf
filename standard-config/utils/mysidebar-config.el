@@ -23,5 +23,6 @@
 
 (keymap-global-set "M-9" (lambda () (interactive) (my/toggle-left-padding 40)))
 (keymap-global-set "M-8" (lambda () (interactive) (my/toggle-left-padding 20)))
+(keymap-global-set "M-7" (lambda () (interactive) (my/toggle-left-padding 10)))
 
 (provide 'mysidebar-config)

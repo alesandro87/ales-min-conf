@@ -22,6 +22,7 @@
 (require 'multi-vterm-config)
 (require 'plantuml-config)
 ;;(require 'mermaid-config)
+(require 'dired-config)
 (require 'diredsidebar-config)
 (require 'mysidebar-config)
 
