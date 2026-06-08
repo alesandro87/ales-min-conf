@@ -25,6 +25,7 @@
 (require 'dired-config)
 (require 'diredsidebar-config)
 (require 'mysidebar-config)
+(require 'winnermode-config)
 
 ;; (require 'agentshell-config)
 
