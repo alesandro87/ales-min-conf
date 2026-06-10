@@ -1,5 +1,5 @@
 (use-package dired-sidebar
-  :bind (("M-1" . dired-sidebar-toggle-sidebar))
+  :bind (("M-0" . dired-sidebar-toggle-sidebar))
   :config
 
   ;; aspetto

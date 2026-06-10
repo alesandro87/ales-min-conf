@@ -41,12 +41,12 @@
         (replace-match "\n\n"))))
 
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "IN_PROGRESS(p)" "DONE(d)")))
+        '((sequence "TODO(t)" "IN_PROGRESS(p)" "DONE(d)" "WAITING(w)")))
   
   (setq org-todo-keyword-faces
         '(("TODO" . (:foreground "hot pink" :weight bold))
           ("IN_PROGRESS" . (:foreground "yellow" :weight bold))
-          ;; ("WAITING" . (:foreground "orange" :weight bold))
+          ("WAITING" . (:foreground "orange" :weight bold))
           ;; ("REVIEW" . (:foreground "cyan" :weight bold))
           ("DONE" . (:foreground "green" :weight bold))
           ;; ("CANCELLED" . (:foreground "red" :weight bold)
