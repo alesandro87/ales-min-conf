@@ -7,12 +7,15 @@
   ;; Configurazione specifica per Qt
   (c-set-offset 'innamespace 0)
   (c-set-offset 'access-label -2)
-  (c-set-offset 'case-label 0)
+  (c-set-offset 'case-label 0))
 
-  (add-hook 'c++-ts-mode-hook
-            (lambda ()
-              (setq-local c-ts-mode-indent-offset 4)
-              (setq-local c-ts-mode-indent-style 'k&r))))
+(dolist (hook '(c-ts-mode-hook c++-ts-mode-hook c-mode-hook c++-mode-hook))
+  (add-hook hook #'hs-minor-mode))
+  
+(add-hook 'c++-ts-mode-hook
+          (lambda ()
+            (setq-local c-ts-mode-indent-offset 4)
+            (setq-local c-ts-mode-indent-style 'k&r)))
 
 ;; Configurazione per CMake
 (use-package cmake-mode
@@ -40,7 +43,7 @@
 ;; Configurazione Eglot per C e C++
 (with-eval-after-load 'eglot
   (add-to-list 'eglot-server-programs
-               '((c++-ts-mode c-ts-mode c-mode) . ("clangd" "--compile-commands-dir=./"))))
+               '((c++-ts-mode c-ts-mode c-mode) . ("clangd"))))
 
 
 ;; (global-set-key (kbd "C-c m k") #'my-cmake-clean)

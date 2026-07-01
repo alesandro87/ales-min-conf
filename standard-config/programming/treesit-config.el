@@ -1,4 +1,4 @@
-t;; Tree-sitter setup
+;; Tree-sitter setup
 
 (when (treesit-available-p)
   ;; Installa automaticamente le grammatiche se non presenti
