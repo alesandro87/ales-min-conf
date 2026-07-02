@@ -23,6 +23,7 @@
            ("VTerm"        (mode . vterm-mode))
            ("Dired"        (mode . dired-mode))
            ("Org"          (mode . org-mode))
+           ("Md"          (mode . markdown-mode))
            ("Emacs internals" (or (name . "^\\*scratch\\*$")
                                   (name . "^\\*Messages\\*$")))
            ("Altro"        (starred-name . ".*")))))  ;; sempre ultimo
