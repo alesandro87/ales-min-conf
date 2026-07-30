@@ -26,7 +26,8 @@
 (require 'diredsidebar-config)
 (require 'mysidebar-config)
 (require 'winnermode-config)
-
+(require 'dts-config)
+(require 'flyspell-config)
 ;; (require 'agentshell-config)
 
 (provide 'utils-config)

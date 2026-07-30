@@ -20,6 +20,7 @@
    'org-babel-load-languages
    '((gnuplot . t)
      (emacs-lisp . t)
+     (lisp .t)
      (shell . t)))
 
   ;; Percorso dei file org-agenda per piattaforma
@@ -91,6 +92,7 @@
   (org-fontify-whole-heading-line t)
   (org-fontify-quote-and-verse-blocks t)
   (org-hide-emphasis-markers t)
-  (org-fontify-emphasized-text t))
+  (org-fontify-emphasized-text t)
+  (org-babel-lisp-eval-fn #'sly-eval))
 
 (provide 'org-config)
