@@ -18,7 +18,7 @@
               ((member "JetBrains Mono" (font-family-list)) "JetBrains Mono")
               ((member "DejaVu Sans Mono" (font-family-list)) "DejaVu Sans Mono")
               (t "monospace"))))
-        (set-face-attribute 'default nil :family preferred-font :height 100)
+        (set-face-attribute 'default nil :family preferred-font :height 110)
         (add-to-list 'default-frame-alist
                      `(font . ,(concat preferred-font "-11")))))))
 
