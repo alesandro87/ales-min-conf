@@ -10,6 +10,7 @@
            ("C/C++"        (or (mode . c-mode)
                                (mode . c++-mode)
                                (mode . c++-ts-mode)))
+           ("Python"       (mode . python-ts-mode))
            ("Qml"          (mode . qml-mode))
            ("Yocto"        (mode . bb-mode))
            ("CMake"        (mode . cmake-mode))

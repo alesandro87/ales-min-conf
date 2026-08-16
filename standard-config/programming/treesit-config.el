@@ -7,8 +7,7 @@
           ;(c "https://github.com/tree-sitter/tree-sitter-c")
           ;(common-lisp "https://github.com/thehamsta/tree-sitter-commonlisp")
           (bash "https://github.com/tree-sitter/tree-sitter-bash")
-          (python "https://github.com/tree-sitter/tree-sitter-python")))
-
+          (python "https://github.com/tree-sitter/tree-sitter-python" "v0.21.0")))
   
   ;; Rimappa automaticamente ai mode tree-sitter
   (setq major-mode-remap-alist
