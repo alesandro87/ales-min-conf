@@ -29,5 +29,6 @@
 (require 'dts-config)
 (require 'flyspell-config)
 ;; (require 'agentshell-config)
+(require 'getoutline-config)
 
 (provide 'utils-config)

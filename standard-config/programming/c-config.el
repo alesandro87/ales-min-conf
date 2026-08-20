@@ -17,6 +17,18 @@
             (setq-local c-ts-mode-indent-offset 4)
             (setq-local c-ts-mode-indent-style 'k&r)))
 
+;;; - permette l'utilizzo di .dir-locals.el 
+(defvar-local auto-format-on-save nil
+  "Se non-nil (impostato via .dir-locals.el), formatta con eglot al salvataggio.")
+(put 'auto-format-on-save 'safe-local-variable #'booleanp)
+
+(add-hook 'before-save-hook
+          (lambda ()
+            (when (and (bound-and-true-p auto-format-on-save)
+                       (bound-and-true-p eglot--managed-mode))
+              (eglot-format-buffer))))
+;;;
+
 ;; Configurazione per CMake
 (use-package cmake-mode
   :ensure t
