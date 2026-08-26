@@ -11,15 +11,11 @@
         python-shell-completion-string-code "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
 
   (defun ap/python-ts-setup ()
-    "Setup eglot + flycheck for python-ts-mode."
-    (setq flycheck-eglot-exclusive nil)
+    "Setup eglot for python-ts-mode."
     (eglot-ensure))
 
   (add-hook 'python-ts-mode-hook #'ap/python-ts-setup)
   :hook
-  (python-ts-mode . electric-pair-mode)
-  ;; (python-ts-mode . smartparens-mode)
-  ;;(python-ts-mode . rainbow-delimiters-mode)
-  (python-ts-mode . flycheck-mode))
+  (python-ts-mode . electric-pair-mode))
 
 (provide 'python-config)
