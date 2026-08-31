@@ -8,6 +8,7 @@
 (require 'lisp-config)
 (require 'qml-config)
 (require 'python-config)
+(require 'dart-config)
 
 (require 'programming-integrations)
 (provide 'programming-config)
