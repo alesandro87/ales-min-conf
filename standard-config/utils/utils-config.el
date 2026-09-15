@@ -30,6 +30,6 @@
 (require 'flyspell-config)
 ;; (require 'agentshell-config)
 (require 'getoutline-config)
-(require 'blog-config)
+;; (require 'blog-config)
 
 (provide 'utils-config)
