@@ -1,3 +1,6 @@
+;; Usata nell'hook di org-mode; cape viene caricato tramite autoload.
+(declare-function cape-dict "cape" (&optional interactive))
+
 (use-package gnuplot
   :ensure t
   :defer t)
@@ -13,6 +16,13 @@
   (("M-o" . org-search-view)        ; ← globale (nessun :map sopra)
    :map org-mode-map
    ("M-g i" . consult-org-heading)) ; ← resta solo in Org
+
+  :hook
+  ;; Aggiunge il dizionario in coda alle capf di Org, senza sostituirle:
+  ;; restano pcomplete (#+keyword, tag, proprietà) e le capf globali di
+  ;; cape (dabbrev, file, elisp-block) tramite `t'.
+  (org-mode . (lambda ()
+                (add-hook 'completion-at-point-functions #'cape-dict 90 t)))
 
   :config
   ;; Carica moduli per i grafici Org
