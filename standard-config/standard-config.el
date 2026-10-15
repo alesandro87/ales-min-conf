@@ -1,9 +1,8 @@
 ;;; standard-config.el --- starting point for standard daily use configuration
 
-(add-to-list 'load-path (expand-file-name "./ales-min-conf/standard-config/single" user-emacs-directory))
-(add-to-list 'load-path (expand-file-name "./ales-min-conf/standard-config/programming" user-emacs-directory))
-(add-to-list 'load-path (expand-file-name "./ales-min-conf/standard-config/utils" user-emacs-directory))
-(add-to-list 'load-path (expand-file-name "./ales-min-conf/standard-config/mode" user-emacs-directory))
+(let ((dir (file-name-directory (file-truename (or load-file-name buffer-file-name)))))
+  (dolist (sub '("single" "programming" "utils" "mode"))
+    (add-to-list 'load-path (expand-file-name sub dir))))
 
 (require 'ales-config) ;; load ales configuration, custom shortcut and other simple thinks
 
