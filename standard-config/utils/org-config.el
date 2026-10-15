@@ -1,3 +1,7 @@
+(use-package gnuplot
+  :ensure t
+  :defer t)
+
 (use-package org
   :ensure t
   :defer t
@@ -27,12 +31,15 @@
   ;; Percorso dei file org-agenda per piattaforma
   (cond
    ((eq system-type 'windows-nt)
-    (setq org-agenda-files (directory-files-recursively "C:\\Users\\atanasio\\Work\\Note" "\\.org$")))
+    (when (file-directory-p "C:\\Users\\atanasio\\Work\\Note")
+      (setq org-agenda-files (directory-files-recursively "C:\\Users\\atanasio\\Work\\Note" "\\.org$"))))
    ((eq system-type 'gnu/linux)
-    (setq org-agenda-files (directory-files-recursively "~/Note/" "\\.org$")))
+    (when (file-directory-p "~/Note/")
+      (setq org-agenda-files (directory-files-recursively "~/Note/" "\\.org$"))))
    ;;(setq org-agenda-files (directory-files-recursively "~/Work/Note/Elen/Sprint/" "\\.org$")))
    ((eq system-type 'darwin)  ; macOS
-    (setq org-agenda-files (directory-files-recursively "~/Note/" "\\.org$"))))
+    (when (file-directory-p "~/Note/")
+      (setq org-agenda-files (directory-files-recursively "~/Note/" "\\.org$")))))
   
   ;; La tua funzione per pulire le righe vuote
   (defun clear-double-return ()
@@ -55,12 +62,13 @@
           ))
   
   ;; Configurazione font per emoji
-  (set-fontset-font t 'symbol 
-                    (cond
-                     ((eq system-type 'windows-nt) "Segoe UI Emoji")
-                     ((eq system-type 'darwin) "Apple Color Emoji")
-                     ((eq system-type 'gnu/linux) "Noto Color Emoji"))
-                    nil 'prepend)
+  (when (fboundp 'set-fontset-font)
+    (set-fontset-font t 'symbol
+                      (cond
+                       ((eq system-type 'windows-nt) "Segoe UI Emoji")
+                       ((eq system-type 'darwin) "Apple Color Emoji")
+                       ((eq system-type 'gnu/linux) "Noto Color Emoji"))
+                      nil 'prepend))
   
   ;; :hook(
   ;;       ((org-mode . (lambda ()
