@@ -8,7 +8,10 @@
 
 (if (my/is-linux-p)
     (require 'linux))
-    
+
+(if (my/is-windows-p)
+    (require 'windows))
+
 (require 'utils-config) ;; load vertico orderless and marginalia
 (require 'programming-config)
 
