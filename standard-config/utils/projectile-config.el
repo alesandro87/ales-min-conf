@@ -22,9 +22,14 @@ If not found and the project is managed by git, traverses up to the superproject
 root, correctly handling submodules.
 Falls back to `projectile-project-root' in all other cases."
   (or (locate-dominating-file default-directory ".project-root")
-      (let ((root (string-trim
-                   (shell-command-to-string
-                    "git rev-parse --show-superproject-working-tree 2>/dev/null"))))
+      (let ((root (with-temp-buffer
+                    ;; git chiamato direttamente (niente shell): funziona anche
+                    ;; con cmd.exe; stderr scartato, errore o git assente → "".
+                    (if (eq 0 (ignore-errors
+                                (process-file "git" nil '(t nil) nil "rev-parse"
+                                              "--show-superproject-working-tree")))
+                        (string-trim (buffer-string))
+                      ""))))
         (if (string-empty-p root)
             (projectile-project-root)
           root))))
