@@ -13,6 +13,7 @@
 (require 'orderless-config)
 (require 'projectile-config)
 (require 'org-config)
+(require 'markdown-config)
 (require 'ibuffer-config)
 (require 'bb-config)
 (require 'imenu-list-config)
@@ -29,7 +30,7 @@
 (require 'dts-config)
 (require 'flyspell-config)
 ;; (require 'agentshell-config)
-(require 'getoutline-config)
+;; (require 'getoutline-config)
 ;; (require 'blog-config)
 
 (provide 'utils-config)
