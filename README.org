@@ -57,6 +57,40 @@ After installation, your .emacs.d should look like this:
 ├── init.el                 # From minimal-emacs.d
 └── ...
 #+END_EXAMPLE
+*** Windows
+Supported on native Windows (GNU Emacs from ~winget install GNU.Emacs~),
+with fewer features than on Linux: Org and Yocto (~bb-mode~, ~dts-mode~)
+are the target. vterm is not available (~C-c v t~ opens eshell instead);
+spell checking is enabled only if ~hunspell~ is on the ~PATH~.
+
+1. Set ~HOME~ to your profile, so that =~= is =C:\Users\<user>= and not
+   =AppData\Roaming=. In *cmd.exe* (not PowerShell):
+   #+BEGIN_SRC bat
+   setx HOME "%USERPROFILE%"
+   #+END_SRC
+2. Install Git (needed by ~package-vc~ for ~dart-ts-mode~ at first start):
+   #+BEGIN_SRC bat
+   winget install Git.Git
+   #+END_SRC
+   ~setx~ and the installer only change the environment of new processes:
+   open a new terminal (or log out and in) before starting Emacs.
+3. Clone minimal-emacs.d into =%USERPROFILE%\.emacs.d= and this repository
+   anywhere, e.g. =%USERPROFILE%\projects\ales-min-conf=.
+4. Symbolic links need admin rights or Developer Mode, so instead create
+   three one-line stub files in =.emacs.d= that load the real ones (use
+   forward slashes in the path):
+   #+BEGIN_SRC emacs-lisp
+   ;; .emacs.d/pre-early-init.el
+   (load "C:/Users/<user>/projects/ales-min-conf/pre-early-init.el" nil t)
+   ;; .emacs.d/post-early-init.el
+   (load "C:/Users/<user>/projects/ales-min-conf/post-early-init.el" nil t)
+   ;; .emacs.d/post-init.el
+   (load "C:/Users/<user>/projects/ales-min-conf/post-init.el" nil t)
+   #+END_SRC
+
+Optional tools: ~hunspell~ with an =it_IT= dictionary (spell checking in
+Org), ~rg~ (~winget install BurntSushi.ripgrep.MSVC~, for
+~consult-ripgrep~).
 ** Configuration Files
 
 pre-early-init.el - Settings loaded before early-init
