@@ -1,3 +1,4 @@
+;;; dired-config.el -*- lexical-binding: t; -*-
 ;; In locale: switch GNU, con group-directories-first
 (setq dired-listing-switches "-ahl --group-directories-first")
 

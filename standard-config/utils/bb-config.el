@@ -1,3 +1,4 @@
+;;; bb-config.el -*- lexical-binding: t; -*-
 (use-package bb-mode
   :ensure nil   ; file locale in standard-config/mode/, non su ELPA
   :mode (("\\.bb\\'"       . bb-mode)

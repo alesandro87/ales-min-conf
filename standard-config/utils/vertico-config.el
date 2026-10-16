@@ -1,3 +1,4 @@
+;;; vertico-config.el -*- lexical-binding: t; -*-
 (use-package vertico
   ;; (Note: It is recommended to also enable the savehist package.)
   :ensure t

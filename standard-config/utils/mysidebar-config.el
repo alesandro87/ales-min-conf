@@ -1,3 +1,4 @@
+;;; mysidebar-config.el -*- lexical-binding: t; -*-
 (defun my/toggle-left-padding (&optional width)
   "Apre/chiude una finestra vuota a sinistra come margine."
   (interactive)

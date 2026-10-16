@@ -1,3 +1,4 @@
+;;; small-config.el -*- lexical-binding: t; -*-
 
 ;; Versione per terminale MSYS
 (if (getenv "MSYSTEM")

@@ -1,3 +1,4 @@
+;;; programming-config.el -*- lexical-binding: t; -*-
 (require 'gdb-config)
 (require 'eglot-config)
 (require 'corfu-config)

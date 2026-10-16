@@ -1,3 +1,4 @@
+;;; treesit-config.el -*- lexical-binding: t; -*-
 ;; Tree-sitter setup
 
 (when (treesit-available-p)

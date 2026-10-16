@@ -1,4 +1,4 @@
-;;; ales-config.el -- single configuration
+;;; ales-config.el --- single configuration -*- lexical-binding: t; -*-
 
 ;; display time in the modeline
 (add-hook 'after-init-hook #'display-time-mode)

@@ -1,3 +1,4 @@
+;;; go-config.el -*- lexical-binding: t; -*-
 (use-package go-mode
   :ensure t
   :hook (

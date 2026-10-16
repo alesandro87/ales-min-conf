@@ -1,3 +1,4 @@
+;;; flyspell-config.el -*- lexical-binding: t; -*-
 ;; Senza hunspell flyspell-mode dà errore all'apertura di ogni file Org:
 ;; in quel caso il controllo ortografico resta spento.
 (if (executable-find "hunspell")
