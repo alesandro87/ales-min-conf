@@ -63,8 +63,6 @@
   (setq dired-sidebar-theme 'ascii)
   (setq dired-sidebar-use-term-integration nil)
   (setq dired-sidebar-use-custom-font nil)
-  ;; ordinamento
-  (setq dired-listing-switches "-alh --group-directories-first")
   ;; comportamento
   (setq dired-sidebar-follow-file t)
   (setq dired-sidebar-pop-to-sidebar-on-toggle-open t)
