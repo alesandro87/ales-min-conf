@@ -50,6 +50,7 @@
     (dired-sidebar-find-file)))
 
 (use-package dired-sidebar
+  :ensure t
   :bind (("M-0" . dired-sidebar-toggle-sidebar)
        :map dired-sidebar-mode-map
        ("SPC" . diredsidebar-config/space-pressed)

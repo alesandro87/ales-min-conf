@@ -43,6 +43,7 @@
 
 ;; Add extensions
 (use-package cape
+  :ensure t
   ;; Bind prefix keymap providing all Cape commands under a mnemonic key.
   ;; Press M-+ ? for help.  Non C-c p: è il prefisso di projectile, che
   ;; con projectile-mode attivo lo nasconde (projectile-config.el).
