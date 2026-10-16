@@ -12,12 +12,12 @@
         python-shell-completion-setup-code "from IPython.core.completerlib import module_completion"
         python-shell-completion-string-code "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
 
-  (defun ap/python-ts-setup ()
+  (defun my/python-setup ()
     "Setup eglot for python-mode and python-ts-mode."
     (eglot-ensure))
 
-  (add-hook 'python-mode-hook #'ap/python-ts-setup)
-  (add-hook 'python-ts-mode-hook #'ap/python-ts-setup)
+  (add-hook 'python-mode-hook #'my/python-setup)
+  (add-hook 'python-ts-mode-hook #'my/python-setup)
   :hook
   ((python-mode python-ts-mode) . electric-pair-local-mode))
 
