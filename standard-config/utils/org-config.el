@@ -46,7 +46,6 @@
      (emacs-lisp . t)
      (lisp . t)
      (shell . t)))
-  (setq org-babel-lisp-eval-fn #'sly-eval) ; ← aggiunto, se usi Sly
 
   ;; Percorso dei file org-agenda per piattaforma
   (cond
