@@ -18,7 +18,8 @@
 (require 'bb-config)
 (require 'imenu-list-config)
 (require 'yasnippet-config)
-(require 'multi-vterm-config)
+(unless (my/is-windows-p)              ; vterm non funziona su Windows nativo
+  (require 'multi-vterm-config))
 (require 'plantuml-config)
 (require 'dired-config)
 (require 'diredsidebar-config)
