@@ -12,10 +12,20 @@
 (dolist (hook '(c-ts-mode-hook c++-ts-mode-hook c-mode-hook c++-mode-hook))
   (add-hook hook #'hs-minor-mode))
   
-(add-hook 'c++-ts-mode-hook
-          (lambda ()
-            (setq-local c-ts-mode-indent-offset 4)
-            (setq-local c-ts-mode-indent-style 'k&r)))
+(defun my/c-ts-indent-setup ()
+  "Indentazione tree-sitter: offset 4, stile k&r.
+Lo stile va applicato con `c-ts-mode-set-style': le regole sono costruite
+nel corpo del mode, prima degli hook, quindi un `setq-local' di
+`c-ts-mode-indent-style' qui non avrebbe effetto.  L'offset va impostato
+prima, perché alcune regole lo leggono quando vengono costruite.
+Senza grammatica il mode salta il suo setup ma esegue gli hook: qui non
+si fa nulla, perché ricostruire le regole darebbe errore."
+  (when (treesit-ready-p (if (derived-mode-p 'c-ts-mode) 'c 'cpp) t)
+    (setq-local c-ts-mode-indent-offset 4)
+    (c-ts-mode-set-style 'k&r)))
+
+(add-hook 'c-ts-mode-hook #'my/c-ts-indent-setup)
+(add-hook 'c++-ts-mode-hook #'my/c-ts-indent-setup)
 
 ;;; - permette l'utilizzo di .dir-locals.el 
 (defvar-local auto-format-on-save nil
@@ -71,6 +81,7 @@
 
 (add-hook 'c++-ts-mode-hook 'my-cpp-mode-hook)
 (add-hook 'c++-mode-hook 'my-cpp-mode-hook)
+(add-hook 'c-ts-mode-hook 'my-cpp-mode-hook)
 (add-hook 'c-mode-hook 'my-cpp-mode-hook)
 
 ;; Configurazione Eglot per C e C++

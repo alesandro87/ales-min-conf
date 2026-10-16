@@ -20,9 +20,9 @@
     (when (treesit-language-available-p (nth 2 remap))
       (add-to-list 'major-mode-remap-alist (cons (nth 0 remap) (nth 1 remap)))))
 
-  ;; C resta sempre classico (gli hook sono su c-mode).  Senza queste voci,
-  ;; caricato c-ts-mode.el, i default di Emacs 30 rimapperebbero c-mode e
-  ;; c-or-c++-mode (.h) ai mode tree-sitter; nil = usa il mode stesso.
+  ;; C resta sempre classico (c-ts-mode solo se attivato a mano).  Senza
+  ;; queste voci, caricato c-ts-mode.el, i default di Emacs 30 rimapperebbero
+  ;; c-mode e c-or-c++-mode (.h) ai mode tree-sitter; nil = usa il mode stesso.
   (add-to-list 'major-mode-remap-alist '(c-mode . nil))
   (add-to-list 'major-mode-remap-alist '(c-or-c++-mode . nil)))
 
