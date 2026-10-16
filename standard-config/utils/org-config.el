@@ -39,13 +39,12 @@
   (require 'gnuplot)
   (require 'org-plot)
 
-  ;; Abilita i linguaggi in Org Babel
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((gnuplot . t)
-     (emacs-lisp . t)
-     (lisp . t)
-     (shell . t)))
+  ;; Abilita i linguaggi in Org Babel aggiungendoli a quelli già attivi:
+  ;; altri moduli (es. plantuml-config.el) ne aggiungono altri, e così il
+  ;; risultato non dipende dall'ordine dei require.
+  (dolist (lang '(gnuplot emacs-lisp lisp shell))
+    (setf (alist-get lang org-babel-load-languages) t))
+  (org-babel-do-load-languages 'org-babel-load-languages org-babel-load-languages)
 
   ;; Percorso dei file org-agenda per piattaforma
   (cond
