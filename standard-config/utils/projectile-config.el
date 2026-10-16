@@ -15,7 +15,7 @@
 (use-package ripgrep
   :ensure t)
 
-(defun projectile-config--toplevel-root ()
+(defun my/projectile--toplevel-root ()
   "Return the top-level project root directory.
 First looks for a `.project-root' marker file traversing up the directory tree.
 If not found and the project is managed by git, traverses up to the superproject
@@ -34,16 +34,16 @@ Falls back to `projectile-project-root' in all other cases."
             (projectile-project-root)
           root))))
 
-(defun projectile-config--consult-find ()
+(defun my/projectile-consult-find ()
   "Run `consult-find' from the top-level project root."
   (interactive)
-  (let ((default-directory (projectile-config--toplevel-root)))
+  (let ((default-directory (my/projectile--toplevel-root)))
     (consult-find default-directory)))
 
-(defun projectile-config--consult-ripgrep ()
+(defun my/projectile-consult-ripgrep ()
   "Run `consult-ripgrep' from the top-level project root."
   (interactive)
-  (let ((default-directory (projectile-config--toplevel-root)))
+  (let ((default-directory (my/projectile--toplevel-root)))
     (consult-ripgrep default-directory)))
 
 (use-package projectile
@@ -58,12 +58,12 @@ Falls back to `projectile-project-root' in all other cases."
   :config
   (setq projectile-switch-project-action #'projectile-dired)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-  (define-key projectile-command-map (kbd "C-f") #'projectile-config--consult-find)
-  (define-key projectile-command-map (kbd "C-s") #'projectile-config--consult-ripgrep))
+  (define-key projectile-command-map (kbd "C-f") #'my/projectile-consult-find)
+  (define-key projectile-command-map (kbd "C-s") #'my/projectile-consult-ripgrep))
  
 ;; (with-eval-after-load 'projectile
-;;   (define-key projectile-command-map (kbd "C-f") #'projectile-config--consult-find)
-;;   (define-key projectile-command-map (kbd "C-s") #'projectile-config--consult-ripgrep))
+;;   (define-key projectile-command-map (kbd "C-f") #'my/projectile-consult-find)
+;;   (define-key projectile-command-map (kbd "C-s") #'my/projectile-consult-ripgrep))
 
 
 (provide 'projectile-config)
