@@ -22,7 +22,7 @@ lanciare a mano una tantum quando serve: M-x ap/dart-install-grammar."
 
 (defun ap/dart-ts-setup ()
   (eglot-ensure)
-  (electric-pair-mode 1))
+  (electric-pair-local-mode 1))
 
 (use-package dart-ts-mode
   :vc (:url "https://github.com/50ways2sayhard/dart-ts-mode" :rev :newest)

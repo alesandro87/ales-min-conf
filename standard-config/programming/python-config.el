@@ -18,6 +18,6 @@
   (add-hook 'python-mode-hook #'ap/python-ts-setup)
   (add-hook 'python-ts-mode-hook #'ap/python-ts-setup)
   :hook
-  ((python-mode python-ts-mode) . electric-pair-mode))
+  ((python-mode python-ts-mode) . electric-pair-local-mode))
 
 (provide 'python-config)
