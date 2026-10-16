@@ -17,14 +17,12 @@
   (setq eglot-autoshutdown t)
   (setq eglot-send-changes-idle-time 0.2)
 
-  ;;Disabilita la formattazione automatica
-  (setq eglot-ignored-server-capabilities 
-        '(:documentOnTypeFormattingProvider 
-          :documentRangeFormattingProvider 
-          :documentFormattingProvider))
-
-  (setq eglot-ignored-server-capabilities 
-      '(:documentOnTypeFormattingProvider))
+  ;; Disabilita solo la formattazione automatica mentre si scrive.  Le
+  ;; capability di formattazione di documento e regione restano: senza,
+  ;; eglot-format (C-c f) darebbe errore, e così la formattazione al
+  ;; salvataggio di c-config.el (auto-format-on-save).
+  (setq eglot-ignored-server-capabilities
+        '(:documentOnTypeFormattingProvider))
   
   ;; Configurazione generale per tutti i linguaggi
   ;; (setq eglot-workspace-configuration
