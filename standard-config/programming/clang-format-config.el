@@ -17,6 +17,7 @@
     (local-set-key (kbd "C-c c r") #'clang-format-region))
 
   (add-hook 'c-mode-hook      #'my-c-mode-keybindings)
-  (add-hook 'c++-ts-mode-hook #'my-c-mode-keybindings))
+  (add-hook 'c++-ts-mode-hook #'my-c-mode-keybindings)
+  (add-hook 'c++-mode-hook    #'my-c-mode-keybindings))
 
 (provide 'clang-format-config)
