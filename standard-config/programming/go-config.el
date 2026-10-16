@@ -2,6 +2,7 @@
   :ensure t
   :hook (
          (go-mode . eglot-ensure)
+         (go-mode . electric-pair-local-mode)
          (before-save . gofmt-before-save))
 
   :bind (:map go-mode-map

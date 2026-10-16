@@ -26,6 +26,4 @@
   (add-to-list 'major-mode-remap-alist '(c-mode . nil))
   (add-to-list 'major-mode-remap-alist '(c-or-c++-mode . nil)))
 
-;; guarda i file c-config.el come è fatto per gli altri linugaggi
-
 (provide 'treesit-config)

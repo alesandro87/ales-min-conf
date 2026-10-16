@@ -52,6 +52,27 @@
 (global-set-key (kbd "C-c m c") #'my-cmake-configure)
 (global-set-key (kbd "C-c m b") #'my-cmake-build)
 
+;; Hook per C e C++ (tree-sitter o classico, vedi treesit-config.el)
+(defun my-cpp-mode-hook ()
+  "Hook personalizzato per C e C++"
+  (eglot-ensure)
+  ;; Parentesi automatiche attive all'apertura di un file C/C++, anche se
+  ;; spente globalmente; solo in questo buffer.
+  (electric-pair-local-mode 1)
+  ;; clang format when save c/c++ file
+  ;; (add-hook 'before-save-hook #'clang-format-buffer nil t)
+
+  ;; Keybindings specifici per C/C++
+  (local-set-key (kbd "C-c o") 'ff-find-other-file)
+  (local-set-key (kbd "C-c C-c") 'compile)
+  (local-set-key (kbd "C-c C-r") 'recompile)
+  ;; Sotto il prefisso C-c m, che è anche quello dei comandi cmake (sopra)
+  (local-set-key (kbd "C-c m m") 'man))
+
+(add-hook 'c++-ts-mode-hook 'my-cpp-mode-hook)
+(add-hook 'c++-mode-hook 'my-cpp-mode-hook)
+(add-hook 'c-mode-hook 'my-cpp-mode-hook)
+
 ;; Configurazione Eglot per C e C++
 (with-eval-after-load 'eglot
   (add-to-list 'eglot-server-programs
