@@ -44,12 +44,13 @@
 ;; Add extensions
 (use-package cape
   ;; Bind prefix keymap providing all Cape commands under a mnemonic key.
-  ;; Press C-c p ? to for help.
-  :bind ("C-c p" . cape-prefix-map) ;; Alternative key: M-<tab>, M-p, M-+
+  ;; Press M-+ ? for help.  Non C-c p: è il prefisso di projectile, che
+  ;; con projectile-mode attivo lo nasconde (projectile-config.el).
+  :bind ("M-+" . cape-prefix-map)
   ;; Alternatively bind Cape commands individually.
-  ;; :bind (("C-c p d" . cape-dabbrev)
-  ;;        ("C-c p h" . cape-history)
-  ;;        ("C-c p f" . cape-file)
+  ;; :bind (("M-+ d" . cape-dabbrev)
+  ;;        ("M-+ h" . cape-history)
+  ;;        ("M-+ f" . cape-file)
   ;;        ...)
   :init
   ;; Add to the global default value of `completion-at-point-functions' which is
