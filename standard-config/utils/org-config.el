@@ -61,7 +61,7 @@
       (setq org-agenda-files (directory-files-recursively "~/Note/" "\\.org$")))))
   
   ;; La tua funzione per pulire le righe vuote
-  (defun clear-double-return ()
+  (defun my/org-clear-double-return ()
     "Rimuove righe vuote multiple lasciandone solo una"
     (save-excursion
       (goto-char (point-min))

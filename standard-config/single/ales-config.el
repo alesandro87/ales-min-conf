@@ -67,7 +67,7 @@
 
 ;; you can select region and calculate the math operation
 ;; 1 + 1 = 2
-(defmacro *-and-replace (function-name inner-function)
+(defmacro my/define-region-evaluator (function-name inner-function)
   `(defun ,function-name (begin end)
      (interactive "r")
      (let* ((input (buffer-substring-no-properties begin end))
@@ -78,6 +78,6 @@
                        (if (stringp output) output
                          (format " %S" output)))))))
 
-(*-and-replace calc-eval-region #'calc-eval)
+(my/define-region-evaluator my/calc-eval-region #'calc-eval)
 
 (provide 'ales-config)
