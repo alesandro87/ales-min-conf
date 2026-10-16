@@ -1,3 +1,4 @@
+;;; orderless-config.el -*- lexical-binding: t; -*-
 (use-package orderless
   ;; Vertico leverages Orderless' flexible matching capabilities, allowing users
   ;; to input multiple patterns separated by spaces, which Orderless then

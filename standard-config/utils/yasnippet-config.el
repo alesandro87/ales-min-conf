@@ -1,3 +1,4 @@
+;;; yasnippet-config.el -*- lexical-binding: t; -*-
 (use-package yasnippet
   ;; yasnippet
   :ensure t

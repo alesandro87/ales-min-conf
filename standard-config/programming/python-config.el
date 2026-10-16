@@ -1,3 +1,4 @@
+;;; python-config.el -*- lexical-binding: t; -*-
 (use-package python
   :ensure t
   ;; .py apre python-mode; treesit-config.el lo rimappa a python-ts-mode

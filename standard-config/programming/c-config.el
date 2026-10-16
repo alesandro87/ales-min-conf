@@ -1,3 +1,4 @@
+;;; c-config.el -*- lexical-binding: t; -*-
 (use-package cc-mode
   :ensure t
   :config

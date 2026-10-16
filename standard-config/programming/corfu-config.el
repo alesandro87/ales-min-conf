@@ -1,3 +1,4 @@
+;;; corfu-config.el -*- lexical-binding: t; -*-
 (use-package corfu
   :ensure t
   :hook ((prog-mode . corfu-mode)

@@ -1,3 +1,4 @@
+;;; lisp-config.el -*- lexical-binding: t; -*-
 (use-package sly
   :ensure t
   :config

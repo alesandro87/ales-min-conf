@@ -1,4 +1,4 @@
-;;; standard-config.el --- starting point for standard daily use configuration
+;;; standard-config.el --- starting point for standard daily use configuration -*- lexical-binding: t; -*-
 
 (let ((dir (file-name-directory (file-truename (or load-file-name buffer-file-name)))))
   (dolist (sub '("single" "programming" "utils" "mode"))

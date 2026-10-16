@@ -1,3 +1,4 @@
+;;; diredsidebar-config.el -*- lexical-binding: t; -*-
 (defun diredsidebar-config/visible-line-width ()
   "Larghezza display della riga corrente, ignorando il testo invisibile."
   (let ((width 0)

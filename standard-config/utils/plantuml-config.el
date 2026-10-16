@@ -1,3 +1,4 @@
+;;; plantuml-config.el -*- lexical-binding: t; -*-
 ;; plantuml-mode chiede la sintassi all'eseguibile già all'apertura del file:
 ;; senza plantuml installato ogni .puml darebbe errore.  In quel caso mode e
 ;; integrazione Org restano spenti e i file si aprono come testo.

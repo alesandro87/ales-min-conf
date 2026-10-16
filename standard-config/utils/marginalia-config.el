@@ -1,3 +1,4 @@
+;;; marginalia-config.el -*- lexical-binding: t; -*-
 (use-package marginalia
   ;; Marginalia allows Embark to offer you preconfigured actions in more contexts.
   ;; In addition to that, Marginalia also enhances Vertico by adding rich

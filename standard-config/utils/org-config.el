@@ -1,3 +1,4 @@
+;;; org-config.el -*- lexical-binding: t; -*-
 ;; Usata nell'hook di org-mode; cape viene caricato tramite autoload.
 (declare-function cape-dict "cape" (&optional interactive))
 (defvar cape-dict-file)

@@ -1,3 +1,4 @@
+;;; imenu-list-config.el -*- lexical-binding: t; -*-
 ;; Facce personalizzabili (M-x customize-face). Condivise da tutti i backend
 ;; imenu dettagliati (eglot, common lisp, ...): stanno fuori dal :config di
 ;; imenu-list perché servono anche prima che il pannello (M-1) sia caricato.

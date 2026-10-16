@@ -1,3 +1,4 @@
+;;; qml-config.el -*- lexical-binding: t; -*-
 (use-package qml-mode
   :ensure t
   :mode "\\.qml\\'"

@@ -1,3 +1,4 @@
+;;; clang-format-config.el -*- lexical-binding: t; -*-
 ;; Aggiungi clang-format
 (use-package clang-format
   :ensure t

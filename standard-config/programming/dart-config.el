@@ -1,3 +1,4 @@
+;;; dart-config.el -*- lexical-binding: t; -*-
 ;; dart-config.el
 (when (treesit-available-p)
   ;; `treesit-language-source-alist' non supporta un hash di commit come
