@@ -12,7 +12,8 @@
   (local-set-key (kbd "C-c o") 'ff-find-other-file)
   (local-set-key (kbd "C-c C-c") 'compile)
   (local-set-key (kbd "C-c C-r") 'recompile)
-  (local-set-key (kbd "C-c m") 'man))
+  ;; Sotto il prefisso C-c m, che è anche quello dei comandi cmake (c-config.el)
+  (local-set-key (kbd "C-c m m") 'man))
 
 ;; Applica l'hook a C++ tree-sitter mode e C mode standard
 (add-hook 'c++-ts-mode-hook 'my-cpp-mode-hook)
