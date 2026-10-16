@@ -15,8 +15,9 @@
   ;; Sotto il prefisso C-c m, che è anche quello dei comandi cmake (c-config.el)
   (local-set-key (kbd "C-c m m") 'man))
 
-;; Applica l'hook a C++ tree-sitter mode e C mode standard
+;; Applica l'hook a C++ (tree-sitter o classico, vedi treesit-config.el) e C
 (add-hook 'c++-ts-mode-hook 'my-cpp-mode-hook)
+(add-hook 'c++-mode-hook 'my-cpp-mode-hook)
 (add-hook 'c-mode-hook 'my-cpp-mode-hook)
 
 ;; Hook per Go

@@ -1,6 +1,7 @@
 (use-package python
   :ensure t
-  :mode ("\\.py\\'" . python-ts-mode)
+  ;; .py apre python-mode; treesit-config.el lo rimappa a python-ts-mode
+  ;; solo se c'è la grammatica
   :config
   (setq python-shell-interpreter "ipython3"
         python-shell-interpreter-args "--colors NoColor --simple-prompt"
@@ -11,11 +12,12 @@
         python-shell-completion-string-code "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
 
   (defun ap/python-ts-setup ()
-    "Setup eglot for python-ts-mode."
+    "Setup eglot for python-mode and python-ts-mode."
     (eglot-ensure))
 
+  (add-hook 'python-mode-hook #'ap/python-ts-setup)
   (add-hook 'python-ts-mode-hook #'ap/python-ts-setup)
   :hook
-  (python-ts-mode . electric-pair-mode))
+  ((python-mode python-ts-mode) . electric-pair-mode))
 
 (provide 'python-config)
