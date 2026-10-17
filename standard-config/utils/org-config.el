@@ -59,14 +59,6 @@
    ((eq system-type 'darwin)  ; macOS
     (when (file-directory-p "~/Note/")
       (setq org-agenda-files (directory-files-recursively "~/Note/" "\\.org$")))))
-  
-  ;; La tua funzione per pulire le righe vuote
-  (defun my/org-clear-double-return ()
-    "Rimuove righe vuote multiple lasciandone solo una"
-    (save-excursion
-      (goto-char (point-min))
-      (while (re-search-forward "\n\n+" nil t)
-        (replace-match "\n\n"))))
 
   (setq org-todo-keywords
         '((sequence "TODO(t)" "IN_PROGRESS(p)" "DONE(d)" "WAITING(w)")))
