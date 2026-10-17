@@ -18,9 +18,9 @@
               ((member "JetBrains Mono" (font-family-list)) "JetBrains Mono")
               ((member "DejaVu Sans Mono" (font-family-list)) "DejaVu Sans Mono")
               (t "monospace"))))
-        (set-face-attribute 'default nil :family preferred-font :height 110)
+        (set-face-attribute 'default nil :family preferred-font :height 120)
         (add-to-list 'default-frame-alist
-                     `(font . ,(concat preferred-font "-11")))))))
+                     `(font . ,(concat preferred-font "-12")))))))
 
 ;; Daemon: ogni nuovo frame da emacsclient
 (add-hook 'after-make-frame-functions #'my/setup-font)

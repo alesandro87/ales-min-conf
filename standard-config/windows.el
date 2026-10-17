@@ -15,9 +15,9 @@
               ((member "Fira Code" (font-family-list)) "Fira Code")
               ((member "Cascadia Mono" (font-family-list)) "Cascadia Mono")
               (t "Consolas"))))
-        (set-face-attribute 'default (selected-frame) :family preferred-font :height 110)
+        (set-face-attribute 'default (selected-frame) :family preferred-font :height 120)
         (add-to-list 'default-frame-alist
-                     `(font . ,(concat preferred-font "-11")))))))
+                     `(font . ,(concat preferred-font "-12")))))))
 
 (add-hook 'after-make-frame-functions #'my/setup-font-windows)
 (add-hook 'window-setup-hook #'my/setup-font-windows)
