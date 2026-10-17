@@ -1,4 +1,5 @@
 ;;; python-config.el -*- lexical-binding: t; -*-
+(declare-function my/eglot-ensure-if-found "eglot-config" (&rest programs))
 (use-package python
   :ensure t
   ;; .py apre python-mode; treesit-config.el lo rimappa a python-ts-mode
@@ -13,8 +14,11 @@
         python-shell-completion-string-code "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
 
   (defun my/python-setup ()
-    "Setup eglot for python-mode and python-ts-mode."
-    (eglot-ensure))
+    "Eglot in python-mode e python-ts-mode, se c'è un server.
+I programmi sono quelli che eglot prova per Python (`eglot-server-programs')."
+    (my/eglot-ensure-if-found "pylsp" "pyls" "basedpyright-langserver"
+                              "pyright-langserver" "jedi-language-server"
+                              "ruff" "ruff-lsp"))
 
   (add-hook 'python-mode-hook #'my/python-setup)
   (add-hook 'python-ts-mode-hook #'my/python-setup)
