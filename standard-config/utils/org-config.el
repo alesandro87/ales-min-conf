@@ -53,10 +53,7 @@
     (when (file-directory-p "C:\\Users\\atanasio\\Work\\Note")
       (setq org-agenda-files (directory-files-recursively "C:\\Users\\atanasio\\Work\\Note" "\\.org$"))))
    ((eq system-type 'gnu/linux)
-    (when (file-directory-p "~/Note/")
-      (setq org-agenda-files (directory-files-recursively "~/Note/" "\\.org$"))))
-   ;;(setq org-agenda-files (directory-files-recursively "~/Work/Note/Elen/Sprint/" "\\.org$")))
-   ((eq system-type 'darwin)  ; macOS
+    ;;(setq org-agenda-files (directory-files-recursively "~/Work/Note/Elen/Sprint/" "\\.org$"))
     (when (file-directory-p "~/Note/")
       (setq org-agenda-files (directory-files-recursively "~/Note/" "\\.org$")))))
 
@@ -77,7 +74,6 @@
     (set-fontset-font t 'symbol
                       (cond
                        ((eq system-type 'windows-nt) "Segoe UI Emoji")
-                       ((eq system-type 'darwin) "Apple Color Emoji")
                        ((eq system-type 'gnu/linux) "Noto Color Emoji"))
                       nil 'prepend))
   
