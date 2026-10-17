@@ -20,9 +20,6 @@
   (and (my/is-linux-p)
        (getenv "WSL_DISTRO_NAME")))
 
-(defun my/is-mac-p ()
-  (eq system-type 'darwin))
-
 ;; Configurazioni molto precoci specifiche per OS
 (when (my/is-windows-p)
   ;; Windows: configurazioni di sistema molto precoci
