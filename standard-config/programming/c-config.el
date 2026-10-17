@@ -1,4 +1,5 @@
 ;;; c-config.el -*- lexical-binding: t; -*-
+(declare-function my/eglot-ensure-if-found "eglot-config" (&rest programs))
 (use-package cc-mode
   :ensure t
   :config
@@ -66,7 +67,7 @@ si fa nulla, perché ricostruire le regole darebbe errore."
 ;; Hook per C e C++ (tree-sitter o classico, vedi treesit-config.el)
 (defun my/cpp-mode-hook ()
   "Hook personalizzato per C e C++"
-  (eglot-ensure)
+  (my/eglot-ensure-if-found "clangd")
   ;; Parentesi automatiche attive all'apertura di un file C/C++, anche se
   ;; spente globalmente; solo in questo buffer.
   (electric-pair-local-mode 1)
@@ -88,7 +89,7 @@ si fa nulla, perché ricostruire le regole darebbe errore."
 ;; Configurazione Eglot per C e C++
 (with-eval-after-load 'eglot
   (add-to-list 'eglot-server-programs
-               '((c++-ts-mode c-ts-mode c-mode) . ("clangd"))))
+               '((c++-ts-mode c++-mode c-ts-mode c-mode) . ("clangd"))))
 
 
 ;; (global-set-key (kbd "C-c m k") #'my/cmake-clean)

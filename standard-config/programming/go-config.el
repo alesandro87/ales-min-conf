@@ -1,19 +1,32 @@
 ;;; go-config.el -*- lexical-binding: t; -*-
+(defvar gofmt-command)                  ; go-mode
+(declare-function gofmt-before-save "go-mode")
+(declare-function my/eglot-ensure-if-found "eglot-config" (&rest programs))
+
+(defun my/go-setup ()
+  "Eglot con gopls e formattazione al salvataggio, solo se i programmi ci sono."
+  (my/eglot-ensure-if-found "gopls")
+  ;; goimports se c'è, altrimenti gofmt (viene con Go), cercati sull'host
+  ;; del file: go-mode lancia il formatter con `process-file' (anche sul
+  ;; remoto) e poi `diff' in locale per applicare le modifiche
+  (let ((formatter (seq-find (lambda (p) (executable-find p t))
+                             '("goimports" "gofmt"))))
+    (when (and formatter (executable-find "diff"))
+      (setq-local gofmt-command formatter)
+      (add-hook 'before-save-hook #'gofmt-before-save nil t))))
+
 (use-package go-mode
   :ensure t
   :hook (
-         (go-mode . eglot-ensure)
-         (go-mode . electric-pair-local-mode)
-         (before-save . gofmt-before-save))
+         (go-mode . my/go-setup)
+         (go-mode . electric-pair-local-mode))
 
   :bind (:map go-mode-map
               ("M-?" . xref-find-references)
               ("M-." . xref-find-definitions)
               ("M-," . xref-pop-marker-stack)
               ;; ("M-*" . pop-tag-mark) ;; Jump back after godef-jump
-              ("C-c m r" . go-run))
-  :config
-  (setq gofmt-command "goimports"))
+              ("C-c m r" . go-run)))
 
 ;; hook per go
 (with-eval-after-load 'eglot

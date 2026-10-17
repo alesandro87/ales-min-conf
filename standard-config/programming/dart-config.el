@@ -1,4 +1,5 @@
 ;;; dart-config.el -*- lexical-binding: t; -*-
+(declare-function my/eglot-ensure-if-found "eglot-config" (&rest programs))
 ;; dart-config.el
 (when (treesit-available-p)
   ;; `treesit-language-source-alist' non supporta un hash di commit come
@@ -22,7 +23,7 @@ lanciare a mano una tantum quando serve: M-x my/dart-install-grammar."
     (treesit-install-language-grammar 'dart)))
 
 (defun my/dart-ts-setup ()
-  (eglot-ensure)
+  (my/eglot-ensure-if-found "dart")
   (electric-pair-local-mode 1))
 
 (use-package dart-ts-mode

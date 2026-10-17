@@ -41,6 +41,14 @@
               ;; ("C-c p" . flymake-goto-prev-error)))
               ))
 
+;;; Senza server `eglot-ensure' prova comunque a connettersi e lascia un
+;;; avviso a ogni file aperto: così, dove il server manca (es. Windows),
+;;; eglot resta spento senza errori.  `M-x eglot' resta disponibile.
+(defun my/eglot-ensure-if-found (&rest programs)
+  "Avvia eglot nel buffer corrente se c'è almeno uno dei PROGRAMS."
+  (when (seq-some (lambda (p) (executable-find p t)) programs)
+    (eglot-ensure)))
+
 ;;; -------------------------------------------------------------------
 ;;; imenu dettagliato via eglot/LSP (granularità in stile clangd)
 ;;;
