@@ -46,8 +46,8 @@
 (use-package cape
   :ensure t
   ;; Bind prefix keymap providing all Cape commands under a mnemonic key.
-  ;; Press M-+ ? for help.  Non C-c p: è il prefisso di projectile, che
-  ;; con projectile-mode attivo lo nasconde (projectile-config.el).
+  ;; Press M-+ ? for help.  Non C-c p: è il prefisso delle ricerche nel
+  ;; progetto (project-config.el).
   :bind ("M-+" . cape-prefix-map)
   ;; Alternatively bind Cape commands individually.
   ;; :bind (("M-+ d" . cape-dabbrev)

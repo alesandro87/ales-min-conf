@@ -29,7 +29,6 @@
   ;;                               (insertSpaces . t)))))))
   
   :bind (:map eglot-mode-map
-              ;; ("<f4>" . projectile-find-other-file)
               ("C-c d" . eglot-find-declaration)
               ("C-c i" . eglot-find-implementation)
               ("C-c r" . eglot-rename)
