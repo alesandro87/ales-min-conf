@@ -34,11 +34,16 @@ si fa nulla, perché ricostruire le regole darebbe errore."
   "Se non-nil (impostato via .dir-locals.el), formatta con eglot al salvataggio.")
 (put 'auto-format-on-save 'safe-local-variable #'booleanp)
 
-(add-hook 'before-save-hook
-          (lambda ()
-            (when (and (bound-and-true-p auto-format-on-save)
-                       (bound-and-true-p eglot--managed-mode))
-              (eglot-format-buffer))))
+(declare-function eglot-managed-p "eglot" ())
+
+(defun my/auto-format-on-save ()
+  "Formatta con eglot prima di salvare, se `auto-format-on-save' è attivo."
+  (when (and auto-format-on-save
+             (fboundp 'eglot-managed-p)
+             (eglot-managed-p))
+    (eglot-format-buffer)))
+
+(add-hook 'before-save-hook #'my/auto-format-on-save)
 ;;;
 
 ;; Configurazione per CMake
@@ -138,23 +143,24 @@ Con \\[universal-argument] chiede la directory dei sorgenti."
 (global-set-key (kbd "C-c m b") #'my/cmake-build)
 
 ;; Hook per C e C++ (tree-sitter o classico, vedi treesit-config.el)
-(defun my/cpp-mode-hook ()
-  "Hook personalizzato per C e C++"
+(defun my/c-setup ()
+  "Eglot e tasti per C e C++."
   (my/eglot-ensure-if-found "clangd")
   ;; clang format when save c/c++ file
   ;; (add-hook 'before-save-hook #'clang-format-buffer nil t)
 
   ;; Keybindings specifici per C/C++
   (local-set-key (kbd "C-c o") 'ff-find-other-file)
+  ;; Copre volutamente `comment-region' di cc-mode (resta M-;)
   (local-set-key (kbd "C-c C-c") 'compile)
   (local-set-key (kbd "C-c C-r") 'recompile)
   ;; Sotto il prefisso C-c m, che è anche quello dei comandi cmake (sopra)
   (local-set-key (kbd "C-c m m") 'man))
 
-(add-hook 'c++-ts-mode-hook 'my/cpp-mode-hook)
-(add-hook 'c++-mode-hook 'my/cpp-mode-hook)
-(add-hook 'c-ts-mode-hook 'my/cpp-mode-hook)
-(add-hook 'c-mode-hook 'my/cpp-mode-hook)
+(add-hook 'c++-ts-mode-hook #'my/c-setup)
+(add-hook 'c++-mode-hook #'my/c-setup)
+(add-hook 'c-ts-mode-hook #'my/c-setup)
+(add-hook 'c-mode-hook #'my/c-setup)
 
 ;; Configurazione Eglot per C e C++
 (with-eval-after-load 'eglot
