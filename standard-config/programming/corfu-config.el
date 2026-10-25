@@ -42,6 +42,16 @@
   ;;       )
   )
 
+;; Emacs 30 non ha child frame su TTY: corfu-terminal disegna il popup
+;; con popon nei frame testuali (emacs-nox, emacsclient -t); nei frame
+;; grafici resta il child frame.  Da Emacs 31 non serve più.
+(use-package corfu-terminal
+  :ensure t
+  :if (< emacs-major-version 31)
+  :after corfu
+  :config
+  (corfu-terminal-mode 1))
+
 ;; Add extensions
 (use-package cape
   :ensure t

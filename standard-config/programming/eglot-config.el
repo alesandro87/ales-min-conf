@@ -36,8 +36,6 @@
               ("C-c a" . eglot-code-actions)
               ("M-RET" . eglot-code-action-quickfix)
               ;; ("C-c h" . eldoc-doc-buffer)
-              ;; ("C-c n" . flymake-goto-next-error)
-              ;; ("C-c p" . flymake-goto-prev-error)))
               ))
 
 ;;; Senza server `eglot-ensure' prova comunque a connettersi e lascia un

@@ -8,7 +8,9 @@
 ;; (message "utils config loaded")
 
 (require 'vertico-config)
+(require 'history-config)
 (require 'consult-config)
+(require 'embark-config)
 (require 'marginalia-config)
 (require 'orderless-config)
 (require 'project-config)
@@ -27,6 +29,7 @@
 (require 'winnermode-config)
 (require 'dts-config)
 (require 'flyspell-config)
+(require 'which-key-config)
 ;; (require 'blog-config)
 
 (provide 'utils-config)
