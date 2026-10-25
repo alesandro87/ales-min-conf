@@ -1,7 +1,9 @@
 ;;; diredsidebar-config.el -*- lexical-binding: t; -*-
 (defun my/dired-sidebar--visible-line-width ()
-  "Larghezza display della riga corrente, ignorando il testo invisibile."
-  (let ((width 0)
+  "Larghezza display della riga corrente, ignorando il testo invisibile.
+Conta il `line-prefix' con cui dired-subtree indenta i sottoalberi."
+  (let ((width (let ((p (get-char-property (line-beginning-position) 'line-prefix)))
+                 (if (stringp p) (string-width p) 0)))
         (pos (line-beginning-position))
         (end (line-end-position)))
     (while (< pos end)
@@ -12,24 +14,29 @@
         (setq pos next)))
     width))
 
+(declare-function dired-get-filename "dired" (&optional localp no-error-if-not-filep))
+
 (defun my/dired-sidebar--max-line-width ()
-  "Colonna visibile massima nel buffer."
+  "Colonna visibile massima fra le righe dei file.
+Esclude l'intestazione con il percorso della directory, che
+altrimenti porterebbe sempre la sidebar alla larghezza massima."
   (save-excursion
     (goto-char (point-min))
     (let ((max 0))
       (while (not (eobp))
-        (setq max (max max (my/dired-sidebar--visible-line-width)))
+        (when (dired-get-filename nil t)
+          (setq max (max max (my/dired-sidebar--visible-line-width))))
         (forward-line 1))
       max)))
 
 (defun my/dired-sidebar--fit-width (&optional buffer)
-  "Adatta la larghezza della sidebar al file più lungo, mai oltre 45 colonne."
+  "Adatta la larghezza della sidebar al file più lungo, fra 20 e 50 colonne."
   (with-current-buffer (or buffer (current-buffer))
-    (when (bound-and-true-p dired-sidebar-mode)
+    (when (derived-mode-p 'dired-sidebar-mode)   ; major mode: non c'è una variabile
       (let ((win (get-buffer-window (current-buffer))))
         (when (window-live-p win)
           (let* ((content (my/dired-sidebar--max-line-width))
-                 (target  (min 50 (+ content 2)))   ; "poco più" = +2
+                 (target  (max 20 (min 50 (+ content 2))))   ; "poco più" = +2
                  (delta   (- target (window-width win)))
                  (window-size-fixed nil))
             (window-resize win delta t t)))))))     ; t finale = ignora size-fixed
@@ -42,6 +49,15 @@
   "Ricalcola la larghezza dopo che la finestra è renderizzata."
   (let ((buf (current-buffer)))
     (run-at-time 0 nil #'my/dired-sidebar--fit-width buf)))
+
+(declare-function dired-sidebar-buffer "dired-sidebar" (&optional frame))
+
+(defun my/dired-sidebar--fit-shown (&optional buffer &rest _)
+  "Riadatta la sidebar BUFFER (o quella mostrata) dopo che è stata aperta.
+Riaprendola, il buffer è riusato e l'hook del mode non gira: la
+larghezza tornerebbe a `dired-sidebar-width'."
+  (when-let* ((buf (or (and (bufferp buffer) buffer) (dired-sidebar-buffer))))
+    (my/dired-sidebar--fit-width buf)))
 
 (defun my/dired-sidebar-space-pressed ()
   "Toggle del sottoalbero se è una directory, altrimenti apre il file."
@@ -82,10 +98,12 @@ MAX-DEPTH come in `dired-subtree-cycle'."
   (setq dired-sidebar-use-term-integration nil)
   (setq dired-sidebar-use-custom-font nil)
   ;; comportamento
-  (setq dired-sidebar-follow-file t)
   (setq dired-sidebar-pop-to-sidebar-on-toggle-open t)
   ;; larghezza dinamica
   (advice-add 'dired-sidebar-subtree-toggle :after #'my/dired-sidebar--refit)
+  (advice-add 'dired-sidebar-show-sidebar   :after #'my/dired-sidebar--fit-shown)
+  ;; toggle espande le cartelle fino al file dopo show-sidebar
+  (advice-add 'dired-sidebar-point-at-file  :after #'my/dired-sidebar--refit)
   (add-hook 'dired-sidebar-mode-hook #'my/dired-sidebar--fit-on-open)
   ;; look minimal
   (add-hook 'dired-sidebar-mode-hook
