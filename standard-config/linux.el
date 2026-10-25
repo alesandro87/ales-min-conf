@@ -5,27 +5,7 @@
   :config
   (exec-path-from-shell-initialize))
 
-;; Usa Fira Code se disponibile, altrimenti DejaVu Sans Mono come fallback.
-;; NB: font-family-list funziona solo con un frame grafico, quindi NON va
-;; chiamata a load-time (specie col daemon). La agganciamo alla creazione frame.
-(defun my/setup-font (&optional frame)
-  "Imposta il font preferito su FRAME (o quello selezionato)."
-  (when (display-graphic-p frame)
-    (with-selected-frame (or frame (selected-frame))
-      (let ((preferred-font
-             (cond
-              ((member "Fira Code" (font-family-list)) "Fira Code")
-              ((member "JetBrains Mono" (font-family-list)) "JetBrains Mono")
-              ((member "DejaVu Sans Mono" (font-family-list)) "DejaVu Sans Mono")
-              (t "monospace"))))
-        (set-face-attribute 'default nil :family preferred-font :height 120)
-        (add-to-list 'default-frame-alist
-                     `(font . ,(concat preferred-font "-12")))))))
-
-;; Daemon: ogni nuovo frame da emacsclient
-(add-hook 'after-make-frame-functions #'my/setup-font)
-;; Avvio non-daemon: il frame iniziale esiste già a fine init
-(add-hook 'window-setup-hook #'my/setup-font)
+;; Il font (my/font-setup) è in ales-config.el, uguale per Linux e Windows.
 
 (setq-default line-spacing 2)
 

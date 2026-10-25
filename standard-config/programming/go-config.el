@@ -15,18 +15,22 @@
       (setq-local gofmt-command formatter)
       (add-hook 'before-save-hook #'gofmt-before-save nil t))))
 
+(defun my/go-run ()
+  "Esegue `go run .' nella directory del file con `compile' (anche via TRAMP)."
+  (interactive)
+  (let ((default-directory (if buffer-file-name
+                               (file-name-directory buffer-file-name)
+                             default-directory)))
+    (unless (executable-find "go" t)
+      (user-error "go non trovato"))
+    (compile "go run .")))
+
+;; M-., M-? e M-, (xref, con eglot) sono già i tasti di default
 (use-package go-mode
   :ensure t
-  :hook (
-         (go-mode . my/go-setup)
-         (go-mode . electric-pair-local-mode))
-
+  :hook (go-mode . my/go-setup)
   :bind (:map go-mode-map
-              ("M-?" . xref-find-references)
-              ("M-." . xref-find-definitions)
-              ("M-," . xref-pop-marker-stack)
-              ;; ("M-*" . pop-tag-mark) ;; Jump back after godef-jump
-              ("C-c m r" . go-run)))
+              ("C-c m r" . my/go-run)))
 
 ;; hook per go
 (with-eval-after-load 'eglot

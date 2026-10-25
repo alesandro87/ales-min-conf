@@ -3,24 +3,7 @@
 ;; only for windows start server
 ; (server-start)
 
-;; Usa Fira Code o Cascadia Mono (default di Windows 11) se disponibili,
-;; altrimenti Consolas. Come in linux.el: font-family-list funziona solo con un
-;; frame grafico, quindi la agganciamo alla creazione del frame.
-(defun my/setup-font-windows (&optional frame)
-  "Imposta il font preferito su FRAME (o quello selezionato)."
-  (when (display-graphic-p frame)
-    (with-selected-frame (or frame (selected-frame))
-      (let ((preferred-font
-             (cond
-              ((member "Fira Code" (font-family-list)) "Fira Code")
-              ((member "Cascadia Mono" (font-family-list)) "Cascadia Mono")
-              (t "Consolas"))))
-        (set-face-attribute 'default (selected-frame) :family preferred-font :height 120)
-        (add-to-list 'default-frame-alist
-                     `(font . ,(concat preferred-font "-12")))))))
-
-(add-hook 'after-make-frame-functions #'my/setup-font-windows)
-(add-hook 'window-setup-hook #'my/setup-font-windows)
+;; Il font (my/font-setup) è in ales-config.el, uguale per Linux e Windows.
 
 ;; Path per Windows
 ;;(when (executable-find "git")

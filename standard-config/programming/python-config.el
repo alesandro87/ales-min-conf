@@ -5,13 +5,21 @@
   ;; .py apre python-mode; treesit-config.el lo rimappa a python-ts-mode
   ;; solo se c'è la grammatica
   :config
-  (setq python-shell-interpreter "ipython3"
-        python-shell-interpreter-args "--colors NoColor --simple-prompt"
-        python-shell-prompt-regexp "In \\[[0-9]+\\]: "
-        python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
-        python-shell-completion-native-enable nil
-        python-shell-completion-setup-code "from IPython.core.completerlib import module_completion"
-        python-shell-completion-string-code "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
+  (defun my/python-shell-setup ()
+    "Shell Python: IPython se c'è sull'host del file, altrimenti python3/python.
+python.el riconosce già prompt e completamento di IPython; la scelta è
+per buffer (anche via TRAMP) e la shell la eredita da qui."
+    (cond ((executable-find "ipython3" t)
+           (setq-local python-shell-interpreter "ipython3"
+                       python-shell-interpreter-args "--colors NoColor --simple-prompt"
+                       python-shell-completion-native-enable nil))
+          ((executable-find "python3" t)
+           (setq-local python-shell-interpreter "python3"))
+          ((executable-find "python" t)
+           (setq-local python-shell-interpreter "python"))))
+
+  (add-hook 'python-mode-hook #'my/python-shell-setup)
+  (add-hook 'python-ts-mode-hook #'my/python-shell-setup)
 
   (defun my/python-setup ()
     "Eglot in python-mode e python-ts-mode, se c'è un server.
@@ -21,8 +29,6 @@ I programmi sono quelli che eglot prova per Python (`eglot-server-programs')."
                               "ruff" "ruff-lsp"))
 
   (add-hook 'python-mode-hook #'my/python-setup)
-  (add-hook 'python-ts-mode-hook #'my/python-setup)
-  :hook
-  ((python-mode python-ts-mode) . electric-pair-local-mode))
+  (add-hook 'python-ts-mode-hook #'my/python-setup))
 
 (provide 'python-config)

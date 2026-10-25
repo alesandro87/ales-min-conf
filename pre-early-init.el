@@ -1,4 +1,4 @@
-;;; pre-early-init.el --- DESCRIPTION -*- no-byte-compile: t; lexical-binding: t; -*-
+;;; pre-early-init.el --- Helper per il sistema operativo e impostazioni precoci -*- no-byte-compile: t; lexical-binding: t; -*-
 
 ;; configuration only in debug phase
 ;; (setq debug-on-error t)

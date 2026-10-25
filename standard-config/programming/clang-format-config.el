@@ -6,16 +6,16 @@
   :config
   (setq clang-format-style-option "file")
 
-  (defun my/c-mode-keybindings ()
+  (defun my/clang-format-keys ()
     "Tasti di clang-format, solo se l'eseguibile c'è."
     (when (executable-find clang-format-executable)
       ;; (local-set-key (kbd "TAB")   #'clang-format-region)
       (local-set-key (kbd "C-c c b") #'clang-format-buffer)
       (local-set-key (kbd "C-c c r") #'clang-format-region)))
 
-  (add-hook 'c-mode-hook      #'my/c-mode-keybindings)
-  (add-hook 'c-ts-mode-hook   #'my/c-mode-keybindings)
-  (add-hook 'c++-ts-mode-hook #'my/c-mode-keybindings)
-  (add-hook 'c++-mode-hook    #'my/c-mode-keybindings))
+  (add-hook 'c-mode-hook      #'my/clang-format-keys)
+  (add-hook 'c-ts-mode-hook   #'my/clang-format-keys)
+  (add-hook 'c++-ts-mode-hook #'my/clang-format-keys)
+  (add-hook 'c++-mode-hook    #'my/clang-format-keys))
 
 (provide 'clang-format-config)

@@ -23,8 +23,7 @@ lanciare a mano una tantum quando serve: M-x my/dart-install-grammar."
     (treesit-install-language-grammar 'dart)))
 
 (defun my/dart-ts-setup ()
-  (my/eglot-ensure-if-found "dart")
-  (electric-pair-local-mode 1))
+  (my/eglot-ensure-if-found "dart"))
 
 (use-package dart-ts-mode
   :vc (:url "https://github.com/50ways2sayhard/dart-ts-mode" :rev :newest)
