@@ -8,11 +8,13 @@
         '(("default"
            ("Go"           (mode . go-mode))
            ("C/C++"        (or (mode . c-mode)
+                               (mode . c-ts-mode)
                                (mode . c++-mode)
                                (mode . c++-ts-mode)))
            ("Python"       (or (mode . python-mode)
                                (mode . python-ts-mode)))
            ("Qml"          (mode . qml-mode))
+           ("Dart"         (mode . dart-ts-mode))
            ("Yocto"        (mode . bb-mode))
            ("CMake"        (mode . cmake-mode))
            ("Emacs Lisp"   (mode . emacs-lisp-mode))
@@ -25,7 +27,8 @@
            ("VTerm"        (mode . vterm-mode))
            ("Dired"        (mode . dired-mode))
            ("Org"          (mode . org-mode))
-           ("Md"          (mode . markdown-mode))
+           ("Md"           (or (mode . markdown-mode)
+                               (mode . gfm-mode)))     ; README.md
            ("Emacs internals" (or (name . "^\\*scratch\\*$")
                                   (name . "^\\*Messages\\*$")))
            ("Altro"        (starred-name . ".*")))))  ;; sempre ultimo
