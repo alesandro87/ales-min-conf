@@ -50,13 +50,30 @@
       (dired-sidebar-subtree-toggle)   ; il fit lo fa l'advice
     (dired-sidebar-find-file)))
 
+(declare-function dired-subtree-cycle "dired-subtree" (&optional max-depth))
+(declare-function dired-sidebar-redisplay-icons "dired-sidebar" ())
+
+(defun my/dired-sidebar-subtree-cycle (&optional max-depth)
+  "Come `dired-subtree-cycle', ma aggiorna i +/- della sidebar.
+MAX-DEPTH come in `dired-subtree-cycle'."
+  (interactive "P")
+  (dired-subtree-cycle max-depth)
+  (dired-sidebar-redisplay-icons)
+  (my/dired-sidebar--fit-width))
+
+;; dired-sidebar >= 2.0 non dipende più da dired-subtree: senza, SPC e
+;; TAB su una cartella non la aprono (ricadono su dired-next-line).
+(use-package dired-subtree
+  :ensure t
+  :defer t)
+
 (use-package dired-sidebar
   :ensure t
   :bind (("M-0" . dired-sidebar-toggle-sidebar)
        :map dired-sidebar-mode-map
        ("SPC" . my/dired-sidebar-space-pressed)
        ("<tab>" . dired-sidebar-subtree-toggle)
-       ("<backtab>" . dired-sidebar-subtree-cycle))
+       ("<backtab>" . my/dired-sidebar-subtree-cycle))
   :config
   ;; aspetto
   (setq dired-sidebar-width 30)  ; solo valore iniziale, poi ricalcolato
@@ -69,7 +86,6 @@
   (setq dired-sidebar-pop-to-sidebar-on-toggle-open t)
   ;; larghezza dinamica
   (advice-add 'dired-sidebar-subtree-toggle :after #'my/dired-sidebar--refit)
-  (advice-add 'dired-sidebar-subtree-cycle  :after #'my/dired-sidebar--refit)
   (add-hook 'dired-sidebar-mode-hook #'my/dired-sidebar--fit-on-open)
   ;; look minimal
   (add-hook 'dired-sidebar-mode-hook
