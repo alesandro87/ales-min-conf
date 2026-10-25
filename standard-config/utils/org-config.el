@@ -69,14 +69,6 @@
           ;; ("CANCELLED" . (:foreground "red" :weight bold)
           ))
   
-  ;; Configurazione font per emoji
-  (when (fboundp 'set-fontset-font)
-    (set-fontset-font t 'symbol
-                      (cond
-                       ((eq system-type 'windows-nt) "Segoe UI Emoji")
-                       ((eq system-type 'gnu/linux) "Noto Color Emoji"))
-                      nil 'prepend))
-  
   ;; :hook(
   ;;       ((org-mode . (lambda ()
   ;;                      (setq-local prettify-symbols-alist

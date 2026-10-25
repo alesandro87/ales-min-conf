@@ -41,6 +41,39 @@
 (global-display-line-numbers-mode 1)
 (column-number-mode 1)
 
+;; Font, uguale su Linux e Windows: il primo installato della lista.
+;; font-family-list funziona solo su un frame grafico, quindi niente
+;; chiamate a load-time: si aggancia alla creazione dei frame (daemon) e a
+;; window-setup-hook (avvio normale, il frame iniziale esiste già).
+(defvar my/font-families
+  '("Fira Code" "JetBrains Mono" "Cascadia Mono" "DejaVu Sans Mono" "Consolas")
+  "Font preferiti in ordine; si usa il primo installato.")
+
+(defvar my/font--emoji-done nil
+  "Non nil quando il font emoji è già nel fontset predefinito.")
+
+(defun my/font-setup (&optional frame)
+  "Imposta font e dimensione su FRAME (o quello selezionato), se grafico.
+La prima volta che il font emoji è disponibile lo aggiunge al fontset
+predefinito, che vale per tutti i frame."
+  (let ((frame (or frame (selected-frame))))
+    (when (display-graphic-p frame)
+      (let* ((families (font-family-list frame))
+             (installed (lambda (f) (member f families)))
+             (font (seq-find installed my/font-families))
+             (emoji (seq-find installed '("Noto Color Emoji" "Segoe UI Emoji"))))
+        (if font
+            (progn
+              (set-face-attribute 'default frame :family font :height 120)
+              (setf (alist-get 'font default-frame-alist) (concat font "-12")))
+          (set-face-attribute 'default frame :height 120))
+        (when (and emoji (not my/font--emoji-done))
+          (set-fontset-font t 'emoji emoji nil 'prepend)
+          (setq my/font--emoji-done t))))))
+
+(add-hook 'after-make-frame-functions #'my/font-setup)
+(add-hook 'window-setup-hook #'my/font-setup)
+
 ;; custom shortcut
 (global-set-key (kbd "C-c e") 'eshell)
 ;; dired
