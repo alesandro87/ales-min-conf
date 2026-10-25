@@ -7,8 +7,8 @@
   :bind (:map markdown-mode-map
               ("C-c C-e" . markdown-do))
   :config
-  ;; Anteprima ed export con pandoc solo se c'è; altrimenti resta il
-  ;; default del pacchetto ("markdown")
+  ;; Anteprima ed export con pandoc se c'è, anche se c'è markdown;
+  ;; altrimenti resta il default del pacchetto
   (when (executable-find "pandoc")
     (setq markdown-command "pandoc")))
 

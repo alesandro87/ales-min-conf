@@ -18,9 +18,12 @@
 (defun my/go-run ()
   "Esegue `go run .' nella directory del file con `compile' (anche via TRAMP)."
   (interactive)
-  (unless (executable-find "go" t)
-    (user-error "go non trovato"))
-  (compile "go run ."))
+  (let ((default-directory (if buffer-file-name
+                               (file-name-directory buffer-file-name)
+                             default-directory)))
+    (unless (executable-find "go" t)
+      (user-error "go non trovato"))
+    (compile "go run .")))
 
 ;; M-., M-? e M-, (xref, con eglot) sono già i tasti di default
 (use-package go-mode

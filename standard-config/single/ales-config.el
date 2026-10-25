@@ -35,8 +35,8 @@
 
 ;; Configurazioni UI comuni (schermata iniziale e campanello li spegne
 ;; già minimal-emacs.d)
-;; Numeri di riga nei buffer di file (codice, testo, configurazione), non
-;; in vterm, eshell, ibuffer, dired, help...
+;; Numeri di riga nei mode di codice, testo e configurazione (e derivati),
+;; non in vterm, eshell, ibuffer, dired, help...
 (dolist (hook '(prog-mode-hook text-mode-hook conf-mode-hook))
   (add-hook hook #'display-line-numbers-mode))
 ;; Parentesi automatiche solo nel codice, non in Org, Markdown e testo
