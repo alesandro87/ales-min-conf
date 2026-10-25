@@ -1,46 +1,17 @@
 ;;; corfu-config.el -*- lexical-binding: t; -*-
 (use-package corfu
   :ensure t
+  ;; text-mode copre anche Org e Markdown
   :hook ((prog-mode . corfu-mode)
-         (org-mode . corfu-mode)
          (text-mode . corfu-mode))
-
   :custom
   (corfu-auto t)                 ; Completamento automatico
   (corfu-auto-delay 0.5)         ; Ritardo 0.5 secondi
   (corfu-auto-prefix 2)          ; Min 2 caratteri
-
-  :bind
-  (:map corfu-map
-        ("TAB" . corfu-insert)     ; TAB per completare
-        ([tab] . corfu-insert))     ; TAB alternativo
-                                        ;("RET" . nil)              ; Disabilita completamento con Invio
-                                        ;("<return>" . nil)
-  
-  
-                                        ;("TAB" . corfu-next)
-                                        ;("S-TAB" . corfu-previous)
-                                        ;("TAB" . corfu-insert))
-
-  ;;:hook (
-  ;;       (prog-mode . corfu-mode)
-  ;;       (markdown-mode . (lambda ()
-  ;;                          (setq-local completion-at-point-functions
-  ;;                                      (list #'cape-dabbrev     ; Parole già scritte
-  ;;                                            #'cape-file        ; Percorsi file
-  ;;                                            #'cape-dict        ; Dizionario parole
-  ;;                                            ;; #'cape-emoji
-  ;;                                            ))))
-  ;;
-  ;;       (org-mode . (lambda ()
-  ;;                     (setq-local completion-at-point-functions
-  ;;                                 (list #'cape-dabbrev     ; Parole già scritte
-  ;;                                       #'cape-file        ; Percorsi file
-  ;;                                       #'cape-dict        ; Dizionario parole
-  ;;                                       ;; #'cape-emoji
-  ;;                                       ))))
-  ;;       )
-  )
+  ;; TAB inserisce il candidato (corfu lo lega a corfu-complete); in GUI il
+  ;; tasto <tab> ricade su TAB
+  :bind (:map corfu-map
+              ("TAB" . corfu-insert)))
 
 ;; Emacs 30 non ha child frame su TTY: corfu-terminal disegna il popup
 ;; con popon nei frame testuali (emacs-nox, emacsclient -t); nei frame
@@ -59,11 +30,6 @@
   ;; Press M-+ ? for help.  Non C-c p: è il prefisso delle ricerche nel
   ;; progetto (project-config.el).
   :bind ("M-+" . cape-prefix-map)
-  ;; Alternatively bind Cape commands individually.
-  ;; :bind (("M-+ d" . cape-dabbrev)
-  ;;        ("M-+ h" . cape-history)
-  ;;        ("M-+ f" . cape-file)
-  ;;        ...)
   :init
   ;; Add to the global default value of `completion-at-point-functions' which is
   ;; used by `completion-at-point'.  The order of the functions matters, the
@@ -71,10 +37,6 @@
   ;; completion functions takes precedence over the global list.
   (add-hook 'completion-at-point-functions #'cape-dabbrev)
   (add-hook 'completion-at-point-functions #'cape-file)
-  (add-hook 'completion-at-point-functions #'cape-elisp-block)
-  ;; (add-hook 'completion-at-point-functions #'cape-history)
-  ;; ...
-)
-
+  (add-hook 'completion-at-point-functions #'cape-elisp-block))
 
 (provide 'corfu-config)
