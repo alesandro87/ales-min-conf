@@ -33,9 +33,8 @@
 (global-set-key (kbd "C-+") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
 
-;; Configurazioni UI comuni
-(setq inhibit-startup-message t)
-(setq ring-bell-function 'ignore)
+;; Configurazioni UI comuni (schermata iniziale e campanello li spegne
+;; già minimal-emacs.d)
 ;; Numeri di riga nei buffer di file (codice, testo, configurazione), non
 ;; in vterm, eshell, ibuffer, dired, help...
 (dolist (hook '(prog-mode-hook text-mode-hook conf-mode-hook))
