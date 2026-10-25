@@ -29,8 +29,6 @@ I programmi sono quelli che eglot prova per Python (`eglot-server-programs')."
                               "ruff" "ruff-lsp"))
 
   (add-hook 'python-mode-hook #'my/python-setup)
-  (add-hook 'python-ts-mode-hook #'my/python-setup)
-  :hook
-  ((python-mode python-ts-mode) . electric-pair-local-mode))
+  (add-hook 'python-ts-mode-hook #'my/python-setup))
 
 (provide 'python-config)

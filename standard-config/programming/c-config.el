@@ -141,9 +141,6 @@ Con \\[universal-argument] chiede la directory dei sorgenti."
 (defun my/cpp-mode-hook ()
   "Hook personalizzato per C e C++"
   (my/eglot-ensure-if-found "clangd")
-  ;; Parentesi automatiche attive all'apertura di un file C/C++, anche se
-  ;; spente globalmente; solo in questo buffer.
-  (electric-pair-local-mode 1)
   ;; clang format when save c/c++ file
   ;; (add-hook 'before-save-hook #'clang-format-buffer nil t)
 

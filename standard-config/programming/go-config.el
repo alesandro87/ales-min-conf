@@ -17,9 +17,7 @@
 
 (use-package go-mode
   :ensure t
-  :hook (
-         (go-mode . my/go-setup)
-         (go-mode . electric-pair-local-mode))
+  :hook (go-mode . my/go-setup)
 
   :bind (:map go-mode-map
               ("M-?" . xref-find-references)

@@ -6,7 +6,6 @@
 ;; Enable `auto-save-mode' to prevent data loss. Use `recover-file' or
 ;; `recover-session' to restore unsaved changes.
 (setq auto-save-default t)
-(electric-pair-mode 1)
 (setq auto-save-interval 300)
 (setq auto-save-timeout 30)
 
@@ -30,7 +29,6 @@
 ;; autorevert permette il caricamento dei file
 ;; quando sono modificati
 (global-auto-revert-mode 1)
-;(electric-pair-mode t)
 (setq text-scale-mode-step 1.05)  ; default è 1.2
 (global-set-key (kbd "C-+") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
@@ -38,7 +36,12 @@
 ;; Configurazioni UI comuni
 (setq inhibit-startup-message t)
 (setq ring-bell-function 'ignore)
-(global-display-line-numbers-mode 1)
+;; Numeri di riga nei buffer di file (codice, testo, configurazione), non
+;; in vterm, eshell, ibuffer, dired, help...
+(dolist (hook '(prog-mode-hook text-mode-hook conf-mode-hook))
+  (add-hook hook #'display-line-numbers-mode))
+;; Parentesi automatiche solo nel codice, non in Org, Markdown e testo
+(add-hook 'prog-mode-hook #'electric-pair-local-mode)
 (column-number-mode 1)
 
 ;; Font, uguale su Linux e Windows: il primo installato della lista.
