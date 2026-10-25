@@ -2,9 +2,11 @@
 (use-package sly
   :ensure t
   :config
-  ;; (setq inferior-lisp-program "/usr/bin/sbcl")
-  (setq inferior-lisp-program "/usr/bin/ecl")
-  (add-hook 'lisp-mode-hook 'sly-editing-mode))
+  ;; Il primo Common Lisp installato (ecl preferito).  Il nome e non il
+  ;; percorso: SLY divide la stringa sugli spazi ("C:/Program Files/...").
+  ;; sly-editing-mode in lisp-mode lo aggiunge già l'autoload di sly.
+  (when-let ((lisp (seq-find #'executable-find '("ecl" "sbcl"))))
+    (setq inferior-lisp-program lisp)))
 
 ;;; -------------------------------------------------------------------
 ;;; imenu dettagliato per Common Lisp (granularità in stile clangd)
