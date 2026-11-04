@@ -8,6 +8,7 @@
 (setq auto-save-default t)
 (setq auto-save-interval 300)
 (setq auto-save-timeout 30)
+(tool-bar-mode -1)
 
 ;; theme
 ;(mapc #'disable-theme custom-enabled-themes)  

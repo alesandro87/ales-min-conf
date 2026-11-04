@@ -13,6 +13,7 @@
 ;; di un sottomodulo) crea un progetto separato.
 ;;
 ;;   C-c p C-f  `consult-find'    - nomi di file nel progetto
+;;              (`consult-fd' su Windows, serve `fd')
 ;;   C-c p C-s  `consult-ripgrep' - testo nel progetto (serve `rg')
 ;;   (con C-u davanti si sceglie la directory di partenza)
 
@@ -20,6 +21,7 @@
 
 (declare-function consult-find "consult" (&optional dir initial))
 (declare-function consult-ripgrep "consult" (&optional dir initial))
+(declare-function consult-fd "consult" (&optional dir initial))
 
 (use-package project
   :ensure nil
@@ -27,7 +29,9 @@
   (project-vc-merge-submodules t)       ; il default, esplicito
   (project-vc-extra-root-markers '(".project-root")))
 
-(global-set-key (kbd "C-c p C-f") #'consult-find)
+;; Su Windows `find' è System32\find.exe (cerca testo, non file): si usa fd.
+(global-set-key (kbd "C-c p C-f")
+                (if (my/is-windows-p) #'consult-fd #'consult-find))
 (global-set-key (kbd "C-c p C-s") #'consult-ripgrep)
 
 (provide 'project-config)
