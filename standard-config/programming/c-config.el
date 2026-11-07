@@ -247,10 +247,31 @@ Con \\[universal-argument] chiede la directory dei sorgenti e il preset."
 (add-hook 'c-ts-mode-hook #'my/c-setup)
 (add-hook 'c-mode-hook #'my/c-setup)
 
+;; SDK incrociati (Yocto): clangd interroga il compilatore indicato in
+;; compile_commands.json per gli include di sistema (del sysroot) solo se
+;; è autorizzato con --query-driver.
+(defvar my/clangd-sdk-dirs '("/opt/tc")
+  "Directory degli SDK incrociati i cui compilatori clangd può eseguire.
+Si usano solo quelle che esistono, sull'host del progetto, quando eglot
+avvia clangd.")
+
+(defun my/clangd-command (&rest _)
+  "clangd, con --query-driver per i gcc/g++ di `my/clangd-sdk-dirs'.
+Con TRAMP le directory si cercano sull'host remoto, dove gira clangd."
+  (let* ((host (file-remote-p default-directory))
+         (globs (mapcan (lambda (dir)
+                          (when (file-directory-p (concat host dir))
+                            (list (concat dir "/**/*-g++")
+                                  (concat dir "/**/*-gcc"))))
+                        my/clangd-sdk-dirs)))
+    (if globs
+        (list "clangd" (concat "--query-driver=" (string-join globs ",")))
+      (list "clangd"))))
+
 ;; Configurazione Eglot per C e C++
 (with-eval-after-load 'eglot
   (add-to-list 'eglot-server-programs
-               '((c++-ts-mode c++-mode c-ts-mode c-mode) . ("clangd"))))
+               '((c++-ts-mode c++-mode c-ts-mode c-mode) . my/clangd-command)))
 
 
 ;; (global-set-key (kbd "C-c m k") #'my/cmake-clean)
