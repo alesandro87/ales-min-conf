@@ -5,10 +5,6 @@
 
 ;; Il font (my/font-setup) è in ales-config.el, uguale per Linux e Windows.
 
-;; Path per Windows
-;;(when (executable-find "git")
-;;  (setq magit-git-executable (executable-find "git")))
-
 ;; Browser su Windows
 ;; (setq browse-url-browser-function 'browse-url-default-windows-browser)
 

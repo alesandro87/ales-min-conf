@@ -31,5 +31,6 @@
 (require 'flyspell-config)
 (require 'which-key-config)
 ;; (require 'blog-config)
+(require 'magit-config)
 
 (provide 'utils-config)

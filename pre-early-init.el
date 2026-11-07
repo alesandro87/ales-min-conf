@@ -4,7 +4,7 @@
 ;; (setq debug-on-error t)
 
 ;; minimal
-(setq minimal-emacs-ui-features '(context-menu tool-bar menu-bar dialogs tooltips))
+(setq minimal-emacs-ui-features '(context-menu menu-bar dialogs tooltips))
 
 ;; Funzioni helper per OS detection
 (defun my/is-windows-p ()
