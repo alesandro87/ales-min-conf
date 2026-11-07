@@ -70,15 +70,23 @@ si fa nulla, perché ricostruire le regole darebbe errore."
 ;;;   stesso CMakePresets.json vale anche in Qt Creator e da terminale.
 (declare-function project-root "project" (project))
 
+(defun my/cmake--local-dir-p (value)
+  "Non-nil se VALUE è un percorso locale: va bene da .dir-locals.el.
+Un percorso TRAMP porterebbe i comandi CMake su un altro host."
+  (and (stringp value) (not (file-remote-p value))))
+
 (defvar my/cmake-source-dir nil
   "Directory dei sorgenti CMake, con il CMakeLists.txt principale.
 Nil = radice del progetto.  Relativa alla radice del progetto o
 assoluta; si imposta per progetto in .dir-locals.el.")
+(put 'my/cmake-source-dir 'safe-local-variable
+     (lambda (value) (or (null value) (my/cmake--local-dir-p value))))
 
 (defvar my/cmake-build-dir "build"
   "Directory di build senza preset, relativa ai sorgenti CMake.
 \"build\" clangd la trova da solo; con un altro nome serve un .clangd nei
 sorgenti con `CompilationDatabase: <nome>' sotto `CompileFlags:'.")
+(put 'my/cmake-build-dir 'safe-local-variable #'my/cmake--local-dir-p)
 
 (defvar my/cmake-preset nil
   "Preset CMake proposto quando non ce n'è uno scelto prima, o nil.
