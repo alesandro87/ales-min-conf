@@ -3,11 +3,13 @@
 ;; Aggiungi clang-format
 (use-package clang-format
   :ensure t
-  :config
-  (setq clang-format-style-option "file")
-
+  :defer t
+  ;; Gli hook stanno in :init: con :defer il :config gira solo al primo
+  ;; comando di clang-format, troppo tardi per legare i tasti.
+  :init
   (defun my/clang-format-keys ()
     "Tasti di clang-format, solo se l'eseguibile c'è."
+    (require 'clang-format)             ; per `clang-format-executable'
     (when (executable-find clang-format-executable)
       ;; (local-set-key (kbd "TAB")   #'clang-format-region)
       (local-set-key (kbd "C-c c b") #'clang-format-buffer)
@@ -16,6 +18,8 @@
   (add-hook 'c-mode-hook      #'my/clang-format-keys)
   (add-hook 'c-ts-mode-hook   #'my/clang-format-keys)
   (add-hook 'c++-ts-mode-hook #'my/clang-format-keys)
-  (add-hook 'c++-mode-hook    #'my/clang-format-keys))
+  (add-hook 'c++-mode-hook    #'my/clang-format-keys)
+  :config
+  (setq clang-format-style-option "file"))
 
 (provide 'clang-format-config)

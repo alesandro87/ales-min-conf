@@ -2,6 +2,7 @@
 (declare-function my/eglot-ensure-if-found "eglot-config" (&rest programs))
 (use-package python
   :ensure t
+  :defer t                              ; lo carica python-mode
   ;; .py apre python-mode; treesit-config.el lo rimappa a python-ts-mode
   ;; solo se c'è la grammatica
   :config

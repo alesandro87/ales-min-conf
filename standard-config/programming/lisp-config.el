@@ -1,7 +1,9 @@
 ;;; lisp-config.el -*- lexical-binding: t; -*-
 (use-package sly
   :ensure t
-  :config
+  :defer t                              ; lo caricano i suoi autoload
+  :init
+  ;; In :init perché serve anche a M-x run-lisp, che non carica sly.
   ;; Il primo Common Lisp installato (ecl preferito).  Il nome e non il
   ;; percorso: SLY divide la stringa sugli spazi ("C:/Program Files/...").
   ;; sly-editing-mode in lisp-mode lo aggiunge già l'autoload di sly.

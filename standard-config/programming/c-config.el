@@ -2,6 +2,7 @@
 (declare-function my/eglot-ensure-if-found "eglot-config" (&rest programs))
 (use-package cc-mode
   :ensure t
+  :defer t                              ; lo carica c-mode/c++-mode
   :config
   ;; Configurazione di base per C++
   (setq c-default-style "linux" c-basic-offset 4)
