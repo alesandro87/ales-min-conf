@@ -12,8 +12,8 @@
 ;; più vicino al file, quindi in una sottodirectory di un repository (o
 ;; di un sottomodulo) crea un progetto separato.
 ;;
-;;   C-c p C-f  `consult-fd'      - nomi di file nel progetto (serve `fd',
-;;                                  altrimenti `consult-find')
+;;   C-c p C-f  `consult-fd'      - nomi di file nel progetto (serve `fd';
+;;                                  senza: `consult-find', non su Windows)
 ;;   C-c p C-s  `consult-ripgrep' - testo nel progetto (serve `rg')
 ;;   (con C-u davanti si sceglie la directory di partenza)
 
@@ -29,11 +29,12 @@
   (project-vc-merge-submodules t)       ; il default, esplicito
   (project-vc-extra-root-markers '(".project-root")))
 
-;; `fd' se c'è (su Windows `find' è System32\find.exe, che cerca testo).
-(global-set-key (kbd "C-c p C-f")
-                (if (or (executable-find "fd") (executable-find "fdfind"))
-                    #'consult-fd
-                  #'consult-find))
+;; `fd' se c'è; su Windows `find' è System32\find.exe (cerca testo, non
+;; file), quindi senza `fd' il tasto resta libero.
+(cond ((or (executable-find "fd") (executable-find "fdfind"))
+       (global-set-key (kbd "C-c p C-f") #'consult-fd))
+      ((not (my/is-windows-p))
+       (global-set-key (kbd "C-c p C-f") #'consult-find)))
 (global-set-key (kbd "C-c p C-s") #'consult-ripgrep)
 
 (provide 'project-config)
