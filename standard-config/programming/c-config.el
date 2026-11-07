@@ -53,21 +53,48 @@ si fa nulla, perché ricostruire le regole darebbe errore."
   :mode ("CMakeLists\\.txt\\'" "\\.cmake\\'"))
 
 ;;; Comandi CMake: sorgenti nella radice del progetto (project.el) o in
-;;; `my/cmake-source-dir', build in `my/cmake-build-dir'.  La configure
-;;; esporta sempre compile_commands.json per clangd; con il generatore
-;;; Visual Studio (default su Windows) CMake lo ignora e clangd resta
-;;; senza database.
+;;; `my/cmake-source-dir'.
+;;;
+;;; - Con CMakePresets.json o CMakeUserPresets.json nei sorgenti si usano
+;;;   i preset (`cmake --preset', `cmake --build --preset'): il preset fa
+;;;   da kit (Qt, toolchain, directory di build).  La configure chiede
+;;;   sempre il preset; build e clean riusano l'ultimo scelto, o quello
+;;;   omonimo della configure (con C-u lo richiedono).  `my/cmake-preset'
+;;;   è il preset proposto quando non ce n'è uno scelto prima.
+;;; - Senza preset la build sta in `my/cmake-build-dir' e la configure
+;;;   esporta compile_commands.json per clangd; con il generatore Visual
+;;;   Studio (default su Windows) CMake lo ignora e clangd resta senza
+;;;   database.  Con i preset lo esporta chi lo imposta nel preset.
+;;; - Un SDK Yocto va nel preset (campi `environment' e `toolchainFile',
+;;;   con l'ambiente del suo environment-setup-*), non in Emacs: così lo
+;;;   stesso CMakePresets.json vale anche in Qt Creator e da terminale.
 (declare-function project-root "project" (project))
+
+(defun my/cmake--local-dir-p (value)
+  "Non-nil se VALUE è un percorso locale: va bene da .dir-locals.el.
+Un percorso TRAMP porterebbe i comandi CMake su un altro host."
+  (and (stringp value) (not (file-remote-p value))))
 
 (defvar my/cmake-source-dir nil
   "Directory dei sorgenti CMake, con il CMakeLists.txt principale.
 Nil = radice del progetto.  Relativa alla radice del progetto o
 assoluta; si imposta per progetto in .dir-locals.el.")
+(put 'my/cmake-source-dir 'safe-local-variable
+     (lambda (value) (or (null value) (my/cmake--local-dir-p value))))
 
 (defvar my/cmake-build-dir "build"
-  "Directory di build, relativa alla directory dei sorgenti CMake.
-\"build\" clangd la trova da solo; con un altro nome serve un .clangd
-nei sorgenti con `CompilationDatabase: <nome>'.")
+  "Directory di build senza preset, relativa ai sorgenti CMake.
+\"build\" clangd la trova da solo; con un altro nome serve un .clangd nei
+sorgenti con `CompilationDatabase: <nome>' sotto `CompileFlags:'.")
+(put 'my/cmake-build-dir 'safe-local-variable #'my/cmake--local-dir-p)
+
+(defvar my/cmake-preset nil
+  "Preset CMake proposto quando non ce n'è uno scelto prima, o nil.
+Si imposta per progetto in .dir-locals.el.")
+(put 'my/cmake-preset 'safe-local-variable #'stringp)
+
+(defvar my/cmake--chosen-presets nil
+  "Ultimi preset scelti: alist ((SORGENTI . TIPO) . NOME).")
 
 (defun my/cmake--source-dir (ask)
   "Directory dei sorgenti CMake del buffer corrente.
@@ -96,16 +123,64 @@ sull'host dei sorgenti o se la build sta su un altro host."
       (user-error "cmake non trovato"))
     (cons src build)))
 
-(defun my/cmake--quote (dir)
-  "DIR per la riga di comando: locale (TRAMP) e quotata.
+(defun my/cmake--quote (arg dir)
+  "ARG quotato per un comando che gira in DIR.
 Su un host remoto il quoting è POSIX anche da Emacs su Windows."
-  (shell-quote-argument (file-local-name (directory-file-name dir))
-                        (file-remote-p dir)))
+  (shell-quote-argument arg (file-remote-p dir)))
 
-(defun my/cmake--compile (dir command &rest dirs)
-  "Esegue COMMAND con `compile' da DIR; DIRS sostituiscono i %s, quotate."
-  (let ((default-directory dir))
-    (compile (apply #'format command (mapcar #'my/cmake--quote dirs)))))
+(defun my/cmake--quote-dir (dir src)
+  "DIR per la riga di comando dei sorgenti SRC: locale (TRAMP) e quotata."
+  (my/cmake--quote (file-local-name (directory-file-name dir)) src))
+
+(defun my/cmake--compile (src command &rest args)
+  "Esegue COMMAND con `compile' da SRC; ARGS (già quotati) per i %s."
+  (let ((default-directory src))
+    (compile (apply #'format command args))))
+
+(defun my/cmake--presets-p (src)
+  "Non-nil se i sorgenti SRC hanno CMakePresets.json o CMakeUserPresets.json."
+  (or (file-exists-p (expand-file-name "CMakePresets.json" src))
+      (file-exists-p (expand-file-name "CMakeUserPresets.json" src))))
+
+(defun my/cmake--list-presets (src kind)
+  "Nomi dei preset KIND (\"configure\" o \"build\") dei sorgenti SRC."
+  (let ((default-directory src))
+    (with-temp-buffer
+      (unless (eq 0 (process-file "cmake" nil t nil
+                                  (concat "--list-presets=" kind)))
+        (user-error "cmake --list-presets=%s: %s" kind
+                    (string-trim (buffer-string))))
+      (goto-char (point-min))
+      (let (names)
+        (while (re-search-forward "^  \"\\([^\"]+\\)\"" nil t)
+          (push (match-string 1) names))
+        (nreverse names)))))
+
+(defun my/cmake--preset (src kind ask)
+  "Preset KIND per i sorgenti SRC.
+Lo chiede con ASK o se non c'è una scelta valida da riusare: l'ultimo
+preset KIND scelto (per la build, solo dopo l'ultima configure), poi
+quello di configure omonimo, poi `my/cmake-preset'."
+  (let* ((names (or (my/cmake--list-presets src kind)
+                    (user-error "Nessun preset %s in %s" kind src)))
+         (key (cons src kind))
+         (default (seq-find
+                   (lambda (n) (member n names))
+                   (list (cdr (assoc key my/cmake--chosen-presets))
+                         (cdr (assoc (cons src "configure")
+                                     my/cmake--chosen-presets))
+                         my/cmake-preset)))
+         (name (if (and default (not ask))
+                   default
+                 (completing-read (format "Preset %s: " kind) names nil t
+                                  nil nil (or default (car names))))))
+    (setf (alist-get key my/cmake--chosen-presets nil nil #'equal) name)
+    ;; Configure con un altro preset: la build non riusa quella vecchia.
+    (when (equal kind "configure")
+      (setf (alist-get (cons src "build") my/cmake--chosen-presets
+                       nil t #'equal)
+            nil))
+    name))
 
 (defun my/cmake--configured (dirs)
   "Errore se la build in (cdr DIRS) non è ancora configurata."
@@ -113,32 +188,49 @@ Su un host remoto il quoting è POSIX anche da Emacs su Windows."
     (user-error "Build non configurata in %s: prima C-c m c" (cdr dirs))))
 
 (defun my/cmake-configure (&optional ask)
-  "Configura con CMake ed esporta compile_commands.json per clangd.
+  "Configura con CMake: con i preset ne chiede uno, senza esporta
+compile_commands.json per clangd.
 Con \\[universal-argument] chiede la directory dei sorgenti."
   (interactive "P")
-  (let ((dirs (my/cmake--dirs ask)))
-    (unless (file-exists-p (expand-file-name "CMakeLists.txt" (car dirs)))
-      (user-error "Nessun CMakeLists.txt in %s" (car dirs)))
-    (my/cmake--compile (car dirs)
-                       "cmake -S %s -B %s -DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
-                       (car dirs) (cdr dirs))))
+  (let* ((dirs (my/cmake--dirs ask))
+         (src (car dirs)))
+    (unless (file-exists-p (expand-file-name "CMakeLists.txt" src))
+      (user-error "Nessun CMakeLists.txt in %s" src))
+    (if (my/cmake--presets-p src)
+        (my/cmake--compile src "cmake --preset %s"
+                           (my/cmake--quote
+                            (my/cmake--preset src "configure" t) src))
+      (my/cmake--compile
+       src "cmake -S %s -B %s -DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+       (my/cmake--quote-dir src src) (my/cmake--quote-dir (cdr dirs) src)))))
 
 (defun my/cmake-build (&optional ask)
-  "Compila la build CMake del progetto.
-Con \\[universal-argument] chiede la directory dei sorgenti."
+  "Compila la build CMake del progetto (con i preset, il preset di build).
+Con \\[universal-argument] chiede la directory dei sorgenti e il preset."
   (interactive "P")
-  (let ((dirs (my/cmake--dirs ask)))
-    (my/cmake--configured dirs)
-    (my/cmake--compile (car dirs) "cmake --build %s -j" (cdr dirs))))
+  (let* ((dirs (my/cmake--dirs ask))
+         (src (car dirs)))
+    (if (my/cmake--presets-p src)
+        (my/cmake--compile src "cmake --build --preset %s -j"
+                           (my/cmake--quote
+                            (my/cmake--preset src "build" ask) src))
+      (my/cmake--configured dirs)
+      (my/cmake--compile src "cmake --build %s -j"
+                         (my/cmake--quote-dir (cdr dirs) src)))))
 
 (defun my/cmake-clean (&optional ask)
-  "Pulisce la build CMake del progetto.
-Con \\[universal-argument] chiede la directory dei sorgenti."
+  "Pulisce la build CMake del progetto (con i preset, il preset di build).
+Con \\[universal-argument] chiede la directory dei sorgenti e il preset."
   (interactive "P")
-  (let ((dirs (my/cmake--dirs ask)))
-    (my/cmake--configured dirs)
-    (my/cmake--compile (car dirs) "cmake --build %s --target clean"
-                       (cdr dirs))))
+  (let* ((dirs (my/cmake--dirs ask))
+         (src (car dirs)))
+    (if (my/cmake--presets-p src)
+        (my/cmake--compile src "cmake --build --preset %s --target clean"
+                           (my/cmake--quote
+                            (my/cmake--preset src "build" ask) src))
+      (my/cmake--configured dirs)
+      (my/cmake--compile src "cmake --build %s --target clean"
+                         (my/cmake--quote-dir (cdr dirs) src)))))
 
 (global-set-key (kbd "C-c m c") #'my/cmake-configure)
 (global-set-key (kbd "C-c m b") #'my/cmake-build)
@@ -163,10 +255,31 @@ Con \\[universal-argument] chiede la directory dei sorgenti."
 (add-hook 'c-ts-mode-hook #'my/c-setup)
 (add-hook 'c-mode-hook #'my/c-setup)
 
+;; SDK incrociati (Yocto): clangd interroga il compilatore indicato in
+;; compile_commands.json per gli include di sistema (del sysroot) solo se
+;; è autorizzato con --query-driver.
+(defvar my/clangd-sdk-dirs '("/opt/tc")
+  "Directory degli SDK incrociati i cui compilatori clangd può eseguire.
+Si usano solo quelle che esistono, sull'host del progetto, quando eglot
+avvia clangd.")
+
+(defun my/clangd-command (&rest _)
+  "clangd, con --query-driver per i gcc/g++ di `my/clangd-sdk-dirs'.
+Con TRAMP le directory si cercano sull'host remoto, dove gira clangd."
+  (let* ((host (file-remote-p default-directory))
+         (globs (mapcan (lambda (dir)
+                          (when (file-directory-p (concat host dir))
+                            (list (concat dir "/**/*-g++")
+                                  (concat dir "/**/*-gcc"))))
+                        my/clangd-sdk-dirs)))
+    (if globs
+        (list "clangd" (concat "--query-driver=" (string-join globs ",")))
+      (list "clangd"))))
+
 ;; Configurazione Eglot per C e C++
 (with-eval-after-load 'eglot
   (add-to-list 'eglot-server-programs
-               '((c++-ts-mode c++-mode c-ts-mode c-mode) . ("clangd"))))
+               '((c++-ts-mode c++-mode c-ts-mode c-mode) . my/clangd-command)))
 
 
 ;; (global-set-key (kbd "C-c m k") #'my/cmake-clean)
