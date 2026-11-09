@@ -82,6 +82,13 @@ predefinito, che vale per tutti i frame."
 (with-eval-after-load 'dired
   (define-key dired-mode-map (kbd "M-<up>") 'dired-up-directory))
 
+;; compile: minimal-emacs.d imposta `compilation-scroll-output' a
+;; `first-error', che con la soglia predefinita (1) si ferma anche sui
+;; warning. Con 2 lo scorrimento si ferma solo sugli errori; anche
+;; next-error/previous-error saltano i warning (si cambia al volo con
+;; M-x compilation-set-skip-threshold).
+(setq compilation-skip-threshold 2)
+
 ;; example function
 (defun erik()
   (interactive)
