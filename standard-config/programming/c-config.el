@@ -68,7 +68,40 @@ si fa nulla, perché ricostruire le regole darebbe errore."
 ;;; - Un SDK Yocto va nel preset (campi `environment' e `toolchainFile',
 ;;;   con l'ambiente del suo environment-setup-*), non in Emacs: così lo
 ;;;   stesso CMakePresets.json vale anche in Qt Creator e da terminale.
+;;; - Su Windows, al primo comando CMake, Emacs prende l'ambiente di
+;;;   `my/cmake-vcvars' (come exec-path-from-shell su Linux): cl.exe,
+;;;   ninja e cmake di Visual Studio finiscono nel PATH.  Un preset non
+;;;   può farlo da sé, perché non può eseguire un .bat.
 (declare-function project-root "project" (project))
+
+(defvar my/cmake-vcvars
+  (and (eq system-type 'windows-nt)
+       "C:/Program Files/Microsoft Visual Studio/2022/Professional/VC/Auxiliary/Build/vcvars64.bat")
+  "vcvars64.bat di Visual Studio, o nil (Linux, o senza MSVC).")
+
+(defvar my/cmake--vcvars-loaded nil
+  "Non-nil dopo che l'ambiente di `my/cmake-vcvars' è stato caricato.")
+
+(defun my/cmake--load-vcvars ()
+  "Copia in Emacs l'ambiente di `my/cmake-vcvars', una volta per sessione.
+Il .bat gira da uno script temporaneo, poi `set' stampa le variabili."
+  (when (and my/cmake-vcvars
+             (not my/cmake--vcvars-loaded)
+             (file-exists-p my/cmake-vcvars))
+    (message "Carico l'ambiente di Visual Studio...")
+    (let ((default-directory temporary-file-directory)
+          (script (make-temp-file
+                   "vcvars" nil ".cmd"
+                   (format "@call \"%s\" >nul\r\n@set\r\n"
+                           (subst-char-in-string ?/ ?\\ my/cmake-vcvars)))))
+      (unwind-protect
+          (dolist (line (process-lines "cmd.exe" "/d" "/c" script))
+            (when (string-match "\\`\\([^=]+\\)=\\(.*?\\)\r?\\'" line)
+              (setenv (match-string 1 line) (match-string 2 line))))
+        (delete-file script)))
+    (setq exec-path (append (parse-colon-path (getenv "PATH"))
+                            (list exec-directory))
+          my/cmake--vcvars-loaded t)))
 
 (defun my/cmake--local-dir-p (value)
   "Non-nil se VALUE è un percorso locale: va bene da .dir-locals.el.
@@ -118,6 +151,7 @@ sull'host dei sorgenti o se la build sta su un altro host."
          (build (expand-file-name my/cmake-build-dir src)))
     (unless (equal (file-remote-p src) (file-remote-p build))
       (user-error "Sorgenti e build su host diversi: %s, %s" src build))
+    (my/cmake--load-vcvars)
     (unless (let ((default-directory src))
               (executable-find "cmake" t))
       (user-error "cmake non trovato"))
